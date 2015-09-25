@@ -1,7 +1,7 @@
 
 # build package documentation
 doc:
-	R -e 'roxygen2::roxygenize()'
+	/unsup/R-3.2.1/bin/R -e 'roxygen2::roxygenize()'
 
 clean:
 	rm -f *~
@@ -18,4 +18,4 @@ clean:
 
 # knit the vignettes
 inst/doc/%.pdf:vignettes/%.Rnw
-	cd vignettes;R CMD Sweave --engine=knitr::knitr --pdf $(<F);cp -f $(<F) ../inst/doc;mv -f $(<F:.Rnw=.pdf) ../inst/doc ; rm -fr figure ; rm -f vignette.aux ; rm -f vignette.log ; rm -f vignette.out; rm -f vignette.toc ; cd ..
+	cd vignettes;/unsup/R-3.2.1/bin/R CMD Sweave --engine=knitr::knitr --pdf $(<F);cp -f $(<F) ../inst/doc;mv -f $(<F:.Rnw=.pdf) ../inst/doc ; rm -fr figure ; rm -f vignette.aux ; rm -f vignette.log ; rm -f vignette.out; rm -f vignette.toc ; cd ..
