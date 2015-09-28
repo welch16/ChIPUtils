@@ -8,7 +8,8 @@ NULL
 ##' @slot readsFile Character vector with the name of the reads file to be used
 ##' @slot readsF List of data.table objects containing the reads of the ChIP - Seq experiment that have + strand.
 ##' @slot readsR List of data.table object containning the reads of the ChIP - Seq experiment that have - strand
-##' @slot nReads Numeric value with the number of reads 
+##' @slot nReads Numeric value with the number of reads
+##' @slot isPET Logical variable indicating if the reads the number of sequenced ends in the fragment (TRUE = Paired, FALSE = Single)
 ##'
 ##' @name reads-class
 ##' @rdname reads-class
@@ -18,12 +19,14 @@ setClass("reads",
     readsFile = "character",
     readsF = "list",
     readsR = "list",
-    nReads = "numeric"),
+    nReads = "numeric",
+    isPET = "logical"),
   prototype = prototype(
     readsFile = "",
     readsF = list(),
     readsR = list(),
-    nReads = 0
+    nReads = 0,
+    isPET = FALSE
     ))
 
 setValidity("reads",

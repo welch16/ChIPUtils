@@ -17,5 +17,7 @@ Contains the reads obtained in a ChIP - seq experiment separated by strand and t
 \item{\code{readsR}}{List of data.table object containning the reads of the ChIP - Seq experiment that have - strand}
 
 \item{\code{nReads}}{Numeric value with the number of reads}
+
+\item{\code{isPET}}{Logical variable indicating if the reads the number of sequenced ends in the fragment (TRUE = Paired, FALSE = Single)}
 }}
 

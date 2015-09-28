@@ -6,7 +6,7 @@ doc:
 clean:
 	rm -f *~
 	rm -f */*~
-	rm -f .*~
+	rm -f .*~	
 	rm -f inst/rscripts/*~
 	rm -f vignettes/.Rhistory
 	rm -f vignettes/.RData
