@@ -3,7 +3,7 @@ NULL
 
 ##' reads class description
 ##'
-##' Contains the reads obtained in a ChIP - seq experiment separated by strand and then by chromosome. It has one component for each strand which are object of the data.table class with a match column to identify the regions
+##' Contains the reads obtained in a ChIP experiment separated by strand and then by chromosome. It has one component for each strand which are object of the data.table class with a match column to identify the regions
 ##'
 ##' @slot readsFile Character vector with the name of the reads file to be used
 ##' @slot readsF List of data.table objects containing the reads of the ChIP - Seq experiment that have + strand.

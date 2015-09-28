@@ -5,7 +5,7 @@
 \alias{reads-class}
 \title{reads class description}
 \description{
-Contains the reads obtained in a ChIP - seq experiment separated by strand and then by chromosome. It has one component for each strand which are object of the data.table class with a match column to identify the regions
+Contains the reads obtained in a ChIP experiment separated by strand and then by chromosome. It has one component for each strand which are object of the data.table class with a match column to identify the regions
 }
 \section{Slots}{
 
