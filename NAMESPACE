@@ -2,6 +2,7 @@
 
 export(PBC)
 export(create_reads)
+export(dt2gr)
 export(gr2dt)
 export(readsF)
 export(readsFile)

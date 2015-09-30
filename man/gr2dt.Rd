@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{gr2dt}
 \alias{gr2dt}
-\title{Convert a GRanges object to data.table}
+\title{Converts a GRanges object to data.table}
 \usage{
 gr2dt(gr)
 }

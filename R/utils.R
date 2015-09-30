@@ -3,7 +3,7 @@
 ##' @importFrom IRanges IRanges
 NULL
 
-##' Convert a GRanges object to data.table
+##' Converts a GRanges object to data.table
 ##'
 ##' @description Converts a GRanges object to data.table, the columns
 ##' are gonna have the same names as the GRanges fields
@@ -39,5 +39,56 @@ gr2dt <- function(gr)
   return(out)
 }
 
+###############################################################################333
 
+##' Converts a data.table to GRanges
+##'
+##' @description Coverts a data.table into a GRanges object
+##'
+##' @param dt A data.table with at least the columns seqnames,start and end 
+##'
+##' @export
+##'
+##' @return A GRanges object
+##'
+##' @rdname dt2gr
+##' @name dt2gr
+##'
+##' @seealso \code{\link{gr2dt}}
+##' @examples
+##'
+##' dt <- data.table(seqnames = rep("chr1",8),start = 3:10,end = sample(11:18,8))
+##' dt2gr(dt)
+##' 
+##' dt2 <- copy(dt); dt2[,extra := runif(8)]
+##' dt2gr(dt2)
+##'
+##' dt3 <- copy(dt); dt3[,strand := sample(c("+","-"),8,replace = TRUE)]
+##' dt2gr(dt3)
+##' 
+##' dt3[ , extra := runif(8)]
+##' dt2gr(dt3)
+
+dt2gr <- function(dt)
+{
+  stopifnot( all(c("seqnames","start","end") %in% names(dt)))
+
+  if("strand" %in% names(dt)){
+    st <- dt[,(strand)]
+  }else{
+    st <- "*"
+  }
+
+  gr <- GRanges(seqnames = dt[,(seqnames)],
+    ranges <- IRanges(start = dt[,(start)],end = dt[,(end)]),
+    strand = st)
+  
+  if(any(! names(dt) %in% c("seqnames","start","end","strand"))){
+      extra <- dt[ ,!names(dt) %in% c("seqnames","start","end","strand"),with = FALSE]
+      mcols(gr) <- as.data.frame(extra)    
+  }
+
+  return(gr)
+ 
+}
 
