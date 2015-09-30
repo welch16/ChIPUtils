@@ -36,7 +36,7 @@ setMethod("readsF",
 setReplaceMethod("readsF",
   signature = signature(object = "reads",value = "list"),
   definition = function(object,value){
-      stopifnot(class(object) == "list")
+      stopifnot(class(value) == "list")
       object@readsF <- value
   }
 )                 
@@ -59,7 +59,7 @@ setMethod("readsR",
 setReplaceMethod("readsR",
   signature = signature(object = "reads",value = "list"),
   definition = function(object,value){
-      stopifnot(class(object) == "list")
+      stopifnot(class(value) == "list")
       object@readsR <- value
   }
 )                 
