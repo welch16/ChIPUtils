@@ -2,7 +2,12 @@
 
 export(create_reads)
 export(gr2dt)
+export(readsF)
+export(readsR)
 exportClasses(reads)
+exportMethods("readsF<-")
+exportMethods(readsF)
+exportMethods(readsR)
 import(data.table)
 importFrom(GenomicRanges,GRanges)
 importFrom(IRanges,IRanges)

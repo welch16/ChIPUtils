@@ -21,12 +21,6 @@ gr <- GRanges(seqnames = "chr1",
         ranges = IRanges(start = 3:10,width = 30),
         strand = "*")
 gr2dt(gr)
-
-gr2 <- GRanges(seqnames = Rle(c("chr1", "chr2", "chr1", "chr3"), c(1, 3, 2, 4)),
-        ranges = IRanges(1:10, width = 10:1, names = head(letters,10)),
-        strand = Rle(strand(c("-", "+", "*", "+", "-")),c(1, 2, 2, 3, 2)),
-        score = 1:10, GC = seq(1, 0, length=10), seqinfo=seqinfo)
-gr2dt(gr2)
 }
 \seealso{
 \code{\link{dt2gr}}
