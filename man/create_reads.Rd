@@ -16,9 +16,7 @@ A reads object
 Constructor of the reads class
 }
 \examples{
-\dontrun{
-file = ""
+file = system.file("extdata","example","encod_K562_Ctcf_first3chr_Rep1.sort.bam")
 create_reads(file)
-}
 }
 
