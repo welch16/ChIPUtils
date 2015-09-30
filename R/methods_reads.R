@@ -47,7 +47,7 @@ setReplaceMethod("readsF",
 ##' @aliases readsR
 ##' @docType methods
 ##' @exportMethod readsR
-setMethod("readsF",
+setMethod("readsR",
   signature = signature(object = "reads"),
   definition = function(object)object@readsR
 )
@@ -56,7 +56,7 @@ setMethod("readsF",
 ##' @aliases readsR<-
 ##' @docType methods
 ##' @exportMethod readsF<-
-setReplaceMethod("readsF",
+setReplaceMethod("readsR",
   signature = signature(object = "reads",value = "list"),
   definition = function(object,value){
       stopifnot(class(object) == "list")

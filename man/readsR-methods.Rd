@@ -2,19 +2,19 @@
 % Please edit documentation in R/AllGeneric.R, R/methods_reads.R
 \docType{methods}
 \name{readsR}
-\alias{readsF,reads-method}
-\alias{readsF<-,reads,list-method}
 \alias{readsR}
+\alias{readsR,reads-method}
 \alias{readsR<-}
+\alias{readsR<-,reads,list-method}
 \title{readsR methods}
 \usage{
 readsR(object)
 
 readsR(object) <- value
 
-\S4method{readsF}{reads}(object)
+\S4method{readsR}{reads}(object)
 
-\S4method{readsF}{reads,list}(object) <- value
+\S4method{readsR}{reads,list}(object) <- value
 }
 \arguments{
 \item{object}{A \code{reads} object}
