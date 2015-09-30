@@ -9,6 +9,17 @@ setMethod("show",
 
 ###############################################################################333
 
+##' @rdname readsFile-methods
+##' @aliases readsFile
+##' @docType method
+##' @exportMethod readsFile
+setMethod("readsFile",
+  signature = signature(object = "reads"),
+  definition = function(object)object@readsFile
+)
+
+###############################################################################333
+
 ##' @rdname readsF-methods
 ##' @aliases readsF
 ##' @docType methods

@@ -1,3 +1,27 @@
+
+##' readsFile methods
+##'
+##' readsFile returns the name of the file with the aligned reads
+##'
+##' @param object A \code{reads} object
+##'
+##' @return A character with the name of the file with the aligned reads
+##'
+##' @export
+##' @docType methods
+##' @seealso \code{\link{reads-class}}
+##' @rdname readsFile-methods
+##' @examples
+##' \dontrun{
+##' readsFile(reads)
+##' }
+setGeneric("readsFile",
+  function(object)
+  standardGeneric("readsFile")
+)       
+
+###############################################################################333
+
 ##' readsF methods
 ##'
 ##' readsF returns a list of the fowward aligned reads 
@@ -67,3 +91,4 @@ setGeneric("readsR<-",
   function(object,value)
   standardGeneric("readsR<-")
 )           
+
