@@ -13,7 +13,8 @@
 ##' @name create_reads
 ##'
 ##' @examples
-##' file = system.file("extdata","example","encod_K562_Ctcf_first3chr_Rep1.sort.bam")
+##' file <- system.file("extdata","example",
+##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 ##' create_reads(file)
 ##' 
 create_reads <- function( readsFile )
@@ -31,7 +32,7 @@ create_reads <- function( readsFile )
 
   gr <- gr2dt(greads)
 
-  seykey(gr,strand)
+  setkey(gr,strand)
 
   fwd <- gr["+"]
   bwd <- gr["-"]

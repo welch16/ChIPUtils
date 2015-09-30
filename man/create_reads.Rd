@@ -16,7 +16,8 @@ A reads object
 Constructor of the reads class
 }
 \examples{
-file = system.file("extdata","example","encod_K562_Ctcf_first3chr_Rep1.sort.bam")
+file <- system.file("extdata","example",
+  "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 create_reads(file)
 }
 
