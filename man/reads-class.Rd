@@ -12,12 +12,10 @@ Contains the reads obtained in a ChIP experiment separated by strand and then by
 \describe{
 \item{\code{readsFile}}{Character vector with the name of the reads file to be used}
 
-\item{\code{readsF}}{List of data.table objects containing the reads of the ChIP - Seq experiment that have + strand.}
+\item{\code{readsF}}{List of data.table objects containing the reads of the ChIP - Seq experiment that have + strand}
 
 \item{\code{readsR}}{List of data.table object containning the reads of the ChIP - Seq experiment that have - strand}
 
 \item{\code{nReads}}{Numeric value with the number of reads}
-
-\item{\code{isPET}}{Logical variable indicating if the reads the number of sequenced ends in the fragment (TRUE = Paired, FALSE = Single)}
 }}
 
