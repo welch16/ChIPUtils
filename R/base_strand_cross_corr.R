@@ -24,6 +24,10 @@
 ##' reads <- create_reads(file)
 ##' region <- GRanges(seqnames = "chr1", ranges = IRanges(start = 1,end = 249250621))
 ##' local_strand_cross_corr(reads,region)
+##' 
+##' ## if the regions is empty, cross.corr = 0:
+##' region <- GRanges(seqnames = "chr1",ranges = IRanges(start = 1,end = 1e4))
+##' local_strand_cross_corr(reads,region,shift = 1:5)
 local_strand_cross_corr <- function(reads, region,shift = 1:300 )
 {
   stopifnot(length(region) == 1)
@@ -36,17 +40,21 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
 
   ovF <- findOverlaps(region, rF)
   ovR <- findOverlaps(region, rR)
-
-  rF <- ranges(rF[subjectHits(ovF)])
-  rR <- ranges(rR[subjectHits(ovR)])
-
-  end(rF) <- start(rF)
-  start(rR) <- end(rR)
-
-  cF <- coverage(rF,width = width(region))
-  cR <- coverage(rR,width = width(region))
   
-  cross.corr <- shiftApply(shift,cF,cR,cor,verbose =FALSE)
+  if(  length(ovF)== 0 | length(ovR) == 0){
+    cross.corr <- 0
+  }else{
+    rF <- ranges(rF[subjectHits(ovF)])
+    rR <- ranges(rR[subjectHits(ovR)])
+
+    end(rF) <- start(rF)
+    start(rR) <- end(rR)
+
+    cF <- coverage(rF,width = width(region))
+    cR <- coverage(rR,width = width(region))
+  
+    cross.corr <- shiftApply(shift,cF,cR,cor,verbose =FALSE)
+  }
   return(data.table(shift , cross.corr))
 }
 

@@ -26,5 +26,9 @@ file <- system.file("extdata","example",
 reads <- create_reads(file)
 region <- GRanges(seqnames = "chr1", ranges = IRanges(start = 1,end = 249250621))
 local_strand_cross_corr(reads,region)
+
+## if the regions is empty, cross.corr = 0:
+region <- GRanges(seqnames = "chr1",ranges = IRanges(start = 1,end = 1e4))
+local_strand_cross_corr(reads,region,shift = 1:5)
 }
 
