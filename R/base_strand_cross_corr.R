@@ -14,8 +14,8 @@
 ##'
 ##' @return A data.table with two columns \code{shift} and \code{cross.corr}
 ##'
-##' @rdname local_strand_cc
-##' @name local_strand_cc
+##' @rdname local_strand_cross_corr
+##' @name local_strand_cross_corr
 ##'
 ##' @examples
 ##'
@@ -23,8 +23,8 @@
 ##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 ##' reads <- create_reads(file)
 ##' region <- GRanges(seqnames = "chr1", ranges = IRanges(start = 1,end = 249250621))
-##' local_strand_cc(reads,region)
-local_strand_cc <- function(reads, region,shift = 1:300 )
+##' local_strand_cross_corr(reads,region)
+local_strand_cross_corr <- function(reads, region,shift = 1:300 )
 {
   stopifnot(length(region) == 1)
   stopifnot(class(region) == "GRanges")
