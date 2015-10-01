@@ -92,3 +92,26 @@ setGeneric("readsR<-",
   standardGeneric("readsR<-")
 )           
 
+###############################################################################333
+
+##' summary methods
+##'
+##' summary returns a data.table object with the number of reads per strand and per chromosome
+##'
+##' @param object A \code{reads} object
+##'
+##' @return A data.table with number of reads by chromosome and by strand
+##'
+##' @export
+##' @docType methods
+##' @rdname summary-methods
+##' @examples
+##' \dontrun{
+##' rr <- create_reads(file)
+##' summary(rr)
+##' }
+setGeneric("summary",
+  function(object)
+  standardGeneic("summary")
+)
+
