@@ -99,6 +99,7 @@ setGeneric("readsR<-",
 ##' summary returns a data.table object with the number of reads per strand and per chromosome
 ##'
 ##' @param object A \code{reads} object
+##' @param ... Any other parameters of the summary method
 ##'
 ##' @return A data.table with number of reads by chromosome and by strand
 ##'
@@ -111,7 +112,7 @@ setGeneric("readsR<-",
 ##' summary(rr)
 ##' }
 setGeneric("summary",
-  function(object)
+  function(object,...)
   standardGeneic("summary")
 )
 

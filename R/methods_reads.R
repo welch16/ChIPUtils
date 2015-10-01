@@ -2,8 +2,7 @@
 setMethod("show",
   signature = signature(object = "reads"),
   definition = function(object){
-      cat("Reads in ", object@readsFile,"\n")
-      cat("It contains ", object@nReads,"aligned reads\n")
+      cat("Reads in ", object@readsFile,": " ,object@nReads,"\n")
   }
 )
 
@@ -55,7 +54,7 @@ setMethod("readsR",
 ##' @rdname readsR-methods
 ##' @aliases readsR<-
 ##' @docType methods
-##' @exportMethod readsF<-
+##' @exportMethod readsR<-
 setReplaceMethod("readsR",
   signature = signature(object = "reads",value = "list"),
   definition = function(object,value){

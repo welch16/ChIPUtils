@@ -12,6 +12,8 @@ summary(object, ...)
 }
 \arguments{
 \item{object}{A \code{reads} object}
+
+\item{...}{Any other parameters of the summary method}
 }
 \value{
 A data.table with number of reads by chromosome and by strand
