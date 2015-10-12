@@ -58,18 +58,5 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
   return(data.table(shift , cross.corr))
 }
 
-
-## case 2
-## given a character with the genome
-
-
-## case 3
-## given chrom sizes in dt
-
-
-
-## case 4
-## with the natural limits of the readsFile
-
-
+###############################################################################333
 

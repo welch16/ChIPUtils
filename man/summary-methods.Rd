@@ -22,9 +22,9 @@ A data.table with number of reads by chromosome and by strand
 summary returns a data.table object with the number of reads per strand and per chromosome
 }
 \examples{
-\dontrun{
+file <- system.file("extdata","example",
+  "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 rr <- create_reads(file)
 summary(rr)
-}
 }
 
