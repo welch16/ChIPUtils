@@ -1,7 +1,7 @@
 
 # build package documentation
 doc:
-	/unsup/R-3.2.1/bin/R -e 'roxygen2::roxygenize()'
+	R -e 'roxygen2::roxygenize()'
 
 clean:
 	rm -f *~
