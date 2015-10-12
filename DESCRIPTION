@@ -16,7 +16,6 @@ Depends:
 Imports:
     methods,
     hexbin (>= 1.2.7.1),
-    rbamtools (>= 2.10),    
     Rsamtools (>= 1.16.1),
     ggplot2 (>= 1.0),
     S4Vectors (>= 0.6.2),
