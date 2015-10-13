@@ -23,7 +23,7 @@
 ##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 ##' reads <- create_reads(file)
 ##' region <- GRanges(seqnames = "chr1", ranges = IRanges(start = 1,end = 249250621))
-##' local_strand_cross_corr(reads,region)
+##' local_strand_cross_corr(reads,region,shift = seq(10,300,by = 10))
 ##' 
 ##' ## if the regions is empty, cross.corr = 0:
 ##' region <- GRanges(seqnames = "chr1",ranges = IRanges(start = 1,end = 1e4))
@@ -50,9 +50,14 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
     end(rF) <- start(rF)
     start(rR) <- end(rR)
 
-    cF <- coverage(rF,width = width(region))
-    cR <- coverage(rR,width = width(region))
-  
+    lb <- max(min(start(rF)), min(start(rR)), start(region))
+    ub <- min(max(start(rF)), max(start(rR)), end(region))
+    range <- IRanges(start = lb,end = ub)
+    
+    cF <- coverage(rF)[range]
+    cR <- coverage(rR)[range]
+
+    ## make cF and cR to have the same size      
     cross.corr <- shiftApply(shift,cF,cR,cor,verbose =FALSE)
   }
   return(data.table(shift , cross.corr))

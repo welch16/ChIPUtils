@@ -25,7 +25,7 @@ file <- system.file("extdata","example",
   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 reads <- create_reads(file)
 region <- GRanges(seqnames = "chr1", ranges = IRanges(start = 1,end = 249250621))
-local_strand_cross_corr(reads,region)
+local_strand_cross_corr(reads,region,shift = seq(10,300,by = 10))
 
 ## if the regions is empty, cross.corr = 0:
 region <- GRanges(seqnames = "chr1",ranges = IRanges(start = 1,end = 1e4))
