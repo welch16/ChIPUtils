@@ -32,11 +32,10 @@ readsR returns a list of the backward aligned reads
 readsR<- assisgn a list of forward reads to a reads object
 }
 \examples{
-\dontrun{
-readsF(segvis)
-readsF(reads)
-readsF(segvis) <- new_reads
-}
+file <- system.file("extdata","example",
+  "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
+rr <- create_reads(file)
+readsR(rr)
 }
 \seealso{
 \code{\link{reads-class}}

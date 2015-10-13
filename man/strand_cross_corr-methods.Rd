@@ -34,8 +34,9 @@ file <- system.file("extdata","example",
   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 rr <- create_reads(file)
 shift <- seq(10,100,by = 10)
-chrom.sizes <- data.table(read.table(system.file("inst","extdata",
-  "chrom.sizes","hg19.chrom.sizes",package = "ChIPUtils")))
+chrom.sizes <- system.file("extdata/chrom.sizes/hg19.chrom.sizes",package = "ChIPUtils",mustWork = TRUE)
+message(chrom.sizes)
+chrom.sizes <- data.table(read.table(chrom.sizes))
 strand_cross_corr(rr,shift, chrom.sizes)
 }
 

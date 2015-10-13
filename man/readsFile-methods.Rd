@@ -20,9 +20,10 @@ A character with the name of the file with the aligned reads
 readsFile returns the name of the file with the aligned reads
 }
 \examples{
-\dontrun{
-readsFile(reads)
-}
+file <- system.file("extdata","example",
+  "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
+rr <- create_reads(file)
+readsFile(rr)
 }
 \seealso{
 \code{\link{reads-class}}
