@@ -79,4 +79,44 @@ setMethod("summary",
     out
   }
 )
-          
+
+###############################################################################333
+
+##' @rdname strand_cross_corr-methods
+##' @aliases strand_cross_corr
+##' @docType methods
+##' @exportMethod strand_cross_corr
+setMethod("strand_cross_corr",
+  signature = signature(object = "reads",shift = "numeric",
+      chrom.sizes = "data.table"),
+  definition = function(object,shift,chrom.sizes){
+
+    chr <- names(readsF(object))
+    dt_chr <- chrom.sizes[,1,with = FALSE]
+    
+    stopifnot(any(!chr %in% dt_chr))
+    
+    setnames(chrom.sizes,names(chrom.sizes),c("chr","size"))
+    setkey(chrom.sizes,"chr")
+    
+    sizes <- chrom.sizes[chr]
+    
+    regions <- GRanges(seqnames = chr,ranges = IRanges(start = 1,
+      end = sizes[,(size)]),strand = "*")
+    regions <- split(regions,chr)
+    scc <- lapply(regions,function(x) local_strand_cross_corr(object,x,shift) )
+    sizes[,w := size / sum(size)]
+    weights <- sizes[,(w)]
+    scc <- mapply(function(sc,w){
+      sc[,cross.corr := w * cross.corr]
+      return(sc)
+    },scc,weights,SIMPLIFY = FALSE)
+    
+    scc <- do.call(rbind,scc)
+    nms <- names(scc)
+    scc <- scc[,sum(cross.corr), by = shift]
+    
+    setnames(scc,names(scc),nms)
+    return(scc)
+  }
+)          
