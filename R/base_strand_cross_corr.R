@@ -44,6 +44,7 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
   if(  length(ovF)== 0 | length(ovR) == 0){
     cross.corr <- 0
   }else{
+
     rF <- ranges(rF[subjectHits(ovF)])
     rR <- ranges(rR[subjectHits(ovR)])
 
