@@ -43,6 +43,7 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
   
   if(  length(ovF)== 0 | length(ovR) == 0){
     cross.corr <- 0
+    shift1 <- NULL
   }else{
 
     end(rF) <- start(rF)
@@ -56,9 +57,7 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
     cR <- coverage(ranges(rR))[rangeR]
 
     ## want to make cF and cR to have the same length
-
     ## fix the beginning
-
     if(start(rangeF) != start(rangeR)){
       if(start(rangeF) < start(rangeR)){
         ext <- start(rangeR) - start(rangeF) 
@@ -92,11 +91,9 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
       cc <- shiftApply(shift1,cF,cR,cor,verbose =FALSE)
     }
   }
-  
   dt <- data.table(shift, cross.corr = 0 )
-  setkey(dt,shift)
   if(length(shift1) > 0){
-    dt[shift1, cross.corr := cc]
+    dt[shift %in% shift1, cross.corr := cc]
   }
   dt[is.nan(cross.corr),cross.corr := 0]
   return(copy(dt))

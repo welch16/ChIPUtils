@@ -82,6 +82,19 @@ setMethod("summary",
 
 ###############################################################################333
 
+##' @rdname nreads-methods
+##' @aliases nreads
+##' @docType methods
+##' @exportMethod nreads
+setMethod("nreads",
+  signature = signature(object = "reads"),
+  definition = function(object){
+    return(object@nReads)
+  }
+)
+
+###############################################################################333
+
 ##' @rdname strand_cross_corr-methods
 ##' @aliases strand_cross_corr
 ##' @docType methods
@@ -120,3 +133,6 @@ setMethod("strand_cross_corr",
     return(scc)
   }
 )          
+
+###############################################################################333
+

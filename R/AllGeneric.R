@@ -118,6 +118,28 @@ setGeneric("summary",
 
 ##################################################################################
 
+##' nreads methods
+##' 
+##' nreads returns the number of reads in the object
+##' 
+##' @param object A \code{reads} object
+##' 
+##' @return The number of reads in the \code{reads} object
+##' @export
+##' @docType methods
+##' @rdname nreads-methods
+##' @examples
+##' file <- system.file("extdata","example",
+##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
+##' rr <- create_reads(file)
+##' nreads(rr)
+setGeneric("nreads",
+  function(object)
+  standardGeneric("nreads")
+)
+
+##################################################################################
+
 ##' strand_cross_corr methods
 ##'
 ##' Returns a \code{data.table} with 2 columns: shift and its corresponding
@@ -141,7 +163,7 @@ setGeneric("summary",
 ##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 ##' rr <- create_reads(file)
 ##' shift <- seq(10,100,by = 10)
-##' chrom.sizes <- system.file("extdata/chrom.sizes/hg19.chrom.sizes",package = "ChIPUtils",mustWork = TRUE)
+##' chrom.sizes <- system.file("extdata","chrom.sizes","hg19.chrom.sizes",package = "ChIPUtils",mustWork = TRUE)
 ##' message(chrom.sizes)
 ##' chrom.sizes <- data.table(read.table(chrom.sizes))
 ##' strand_cross_corr(rr,shift, chrom.sizes)
