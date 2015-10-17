@@ -45,24 +45,64 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
     cross.corr <- 0
   }else{
 
-    rF <- ranges(rF[subjectHits(ovF)])
-    rR <- ranges(rR[subjectHits(ovR)])
-
     end(rF) <- start(rF)
     start(rR) <- end(rR)
 
-    lb <- max(min(start(rF)), min(start(rR)), start(region))
-    ub <- min(max(start(rF)), max(start(rR)), end(region))
-    range <- IRanges(start = lb,end = ub)
-    
-    cF <- coverage(rF)[range]
-    cR <- coverage(rR)[range]
+    rangeF <- IRanges(min(start(rF)),max(start(rF)))
+    rangeR <- IRanges(min(start(rR)),max(start(rR)))
+    reg <- ranges(region)
 
-    ## make cF and cR to have the same size      
-    cross.corr <- shiftApply(shift,cF,cR,cor,verbose =FALSE)
+    cF <- coverage(ranges(rF))[rangeF]
+    cR <- coverage(ranges(rR))[rangeR]
+
+    ## want to make cF and cR to have the same length
+
+    ## fix the beginning
+
+    if(start(rangeF) != start(rangeR)){
+      if(start(rangeF) < start(rangeR)){
+        ext <- start(rangeR) - start(rangeF) 
+        cR <- c(Rle(rep(0,ext)),cR)
+      }else{
+        ext <- start(rangeF) - start(rangeR) 
+        cF <- c(Rle(rep(0,ext)),cF)
+      }
+    }
+    
+    ## fix the end
+    if(end(rangeF) != end(rangeR)){
+      if(end(rangeF) < end(rangeR)){
+        ext <- end(rangeR) - end(rangeF) 
+        cF <- c(cF,Rle(rep(0,ext)))
+      }else{
+        ext <- end(rangeF) - end(rangeR) 
+        cR <- c(cR,Rle(rep(0,ext)))
+      }
+    }
+
+    maxShift <- max(shift)
+   
+    ## fix shift
+    if( maxShift >= length(cF)){
+      shift1 <- shift[shift < length(cF)]    
+    }else{
+      shift1 <- shift
+    }
+    if(length(shift1) > 0){
+      cc <- shiftApply(shift1,cF,cR,cor,verbose =FALSE)
+    }
   }
-  return(data.table(shift , cross.corr))
+  
+  dt <- data.table(shift, cross.corr = 0 )
+  setkey(dt,shift)
+  if(length(shift1) > 0){
+    dt[shift1, cross.corr := cc]
+  }
+  dt[is.nan(cross.corr),cross.corr := 0]
+  return(copy(dt))
 }
 
 ###############################################################################333
 
+
+  
