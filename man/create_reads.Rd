@@ -4,10 +4,12 @@
 \alias{create_reads}
 \title{Creates a reads object}
 \usage{
-create_reads(readsFile)
+create_reads(readsFile, isPET = FALSE)
 }
 \arguments{
 \item{readsFile}{Name of the bam file with the aligned reads}
+
+\item{isPET}{Logical indicator to asses if the reads in file are PET or SET. The default value is FALSE indicating SET reads}
 }
 \value{
 A reads object

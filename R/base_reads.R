@@ -4,6 +4,8 @@
 ##' Constructor of the reads class
 ##'
 ##' @param readsFile Name of the bam file with the aligned reads
+##' 
+##' @param isPET Logical indicator to asses if the reads in file are PET or SET. The default value is FALSE indicating SET reads
 ##'
 ##' @export
 ##'
@@ -17,7 +19,7 @@
 ##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 ##' create_reads(file)
 ##' 
-create_reads <- function( readsFile )
+create_reads <- function( readsFile, isPET = FALSE )
 {
   bai <- paste0(readsFile,".bai")
   if(!file.exists(bai)){
@@ -41,6 +43,6 @@ create_reads <- function( readsFile )
   bwd <- split(bwd,bwd[,(seqnames)])
 
   out <- new("reads",readsFile = readsFile,readsF = fwd,readsR = bwd,
-             nReads = nrow(gr))
+             nReads = nrow(gr),isPET = isPET)
   return(out)
 }
