@@ -24,6 +24,30 @@ setGeneric("readsFile",
 
 ##################################################################################
 
+##' isPET methods
+##'
+##' isPET returns a logical value indicating if the object isPET
+##'
+##' @param object A \code{reads} object
+##'
+##' @return A logical value indicating if the reads are PET (TRUE) or SET (FALSE)
+##'
+##' @export
+##' @docType methods
+##' @seealso \code{\link{reads-class}}
+##' @rdname isPET-methods
+##' @examples
+##' file <- system.file("extdata","example",
+##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
+##' rr <- create_reads(file)
+##' isPET(rr)
+setGeneric("isPET",
+           function(object)
+             standardGeneric("isPET")
+)           
+
+##################################################################################
+
 ##' readsF methods
 ##'
 ##' readsF returns a list of the fowward aligned reads 

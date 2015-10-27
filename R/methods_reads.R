@@ -2,8 +2,20 @@
 setMethod("show",
   signature = signature(object = "reads"),
   definition = function(object){
-      cat("Reads in ", object@readsFile,": " ,object@nReads,"\n")
+      cat("Reads in", object@readsFile,": " ,object@nReads,"\n")
+      cat("The reads are", ifelse(isPET(object), "PET", "SET"))
   }
+)
+
+###############################################################################333
+
+##' @rdname isPET-methods
+##' @aliases isPET
+##' @docType method
+##' @exportMethod isPET
+setMethod("isPET",
+  signature = signature(object = "reads"),
+  definition = function(object)object@isPET
 )
 
 ###############################################################################333

@@ -9,6 +9,7 @@ NULL
 ##' @slot readsF List of data.table objects containing the reads of the ChIP - Seq experiment that have + strand
 ##' @slot readsR List of data.table object containning the reads of the ChIP - Seq experiment that have - strand
 ##' @slot nReads Numeric value with the number of reads
+##' @slot isPET Logical value indicating if the reads are paired or not
 ##'
 ##' @name reads-class
 ##' @rdname reads-class
@@ -18,12 +19,14 @@ setClass("reads",
     readsFile = "character",
     readsF = "list",
     readsR = "list",
-    nReads = "numeric"),
+    nReads = "numeric",
+    isPET = "logical"),
   prototype = prototype(
     readsFile = "",
     readsF = list(),
     readsR = list(),
-    nReads = 0
+    nReads = 0,
+    isPET = FALSE
     ))
 
 setValidity("reads",
