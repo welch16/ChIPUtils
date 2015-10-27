@@ -21,18 +21,23 @@
 PBC <- function(reads)
 {
   stopifnot(class(reads) == "reads")
-  tagsF <- lapply(readsF(reads),
-    function(x){
-      out <- x[,length(end),by = start]
-      setnames(out,names(out),c("position","tags"))
-      return(out)})
-  tagsR <- lapply(readsR(reads),
-    function(x){
-      out <- x[,length(start),by = end]
-      setnames(out,names(out),c("position","tags"))
-      return(out)})
-  n1 <- sum(sapply(tagsF,function(x)nrow(x[tags == 1]))) +
-      sum(sapply(tagsR,function(x)nrow(x[tags == 1])))
-  n2 <- sum(sapply(tagsF,nrow)) + sum(sapply(tagsR,nrow))
+  if(!isPET(reads)){
+    tagsF <- lapply(readsF(reads),
+      function(x){
+        out <- x[,length(end),by = start]
+        setnames(out,names(out),c("position","tags"))
+        return(out)})
+    tagsR <- lapply(readsR(reads),
+      function(x){
+        out <- x[,length(start),by = end]
+        setnames(out,names(out),c("position","tags"))
+        return(out)})
+    n1 <- sum(sapply(tagsF,function(x)nrow(x[tags == 1]))) +
+        sum(sapply(tagsR,function(x)nrow(x[tags == 1])))
+    n2 <- sum(sapply(tagsF,nrow)) + sum(sapply(tagsR,nrow))
+  }else{
+    n1 <- 0
+    n2 <- 1
+  }
   return(n1 / n2)                 
 }
