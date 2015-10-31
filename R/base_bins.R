@@ -1,3 +1,7 @@
+##' @importFrom scales trans_format
+##' @importFrom scales math_format
+NULL
+
 ##' Partitions a genome into bins of a fixed length and counts the number of reads that overlap each bin
 ##'
 ##' @description Partitions a chromosome into fixed length bins and counts the number of extended fragments that 
@@ -94,7 +98,7 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
 ##' 
 ##' @param bin_size A integer value used to partition the chromosome 
 ##' 
-##' @param nr_bins Integer value with the number of bins used to build the plot
+##' @param nr_bins Integer value with the number of bins used to build the plot. The default value is 100
 ##'
 ##' @param reads A reads object
 ##'
@@ -111,7 +115,7 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
 ##' @rdname hexbin_plot
 ##' @name hexbin_plot
 ##' 
-## @examples 
+##' @examples 
 ##' file_x <- system.file("extdata","example",
 ##'   "encode_K562_H3k4me1_first3chr.sort.bam",package = "ChIPUtils")
 ##' file_y <- system.file("extdata","example",
@@ -121,7 +125,7 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
 ##' reads_y <- create_reads(file_y)
 ##'
 ##' hexbin_plot(reads_x,reads_y,1e3)+xlim(0,500)+ylim(0,500)
-##' hexbin_plot(reads_x,reads_y,1e3frag_len = 200)+xlim(0,500)+ylim(0,500)
+##' hexbin_plot(reads_x,reads_y,1e3,frag_len = 200)+xlim(0,500)+ylim(0,500)
 ##' hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000)+xlim(0,500)+ylim(0,500)
 hexbin_plot <- function(reads_x,reads_y,bin_size,nr_bins = 100,chrom = NULL, frag_len = 1)
 {
@@ -148,15 +152,13 @@ hexbin_plot <- function(reads_x,reads_y,bin_size,nr_bins = 100,chrom = NULL, fra
   
   dt <- data.table(x = mcols(bins_x)$tagCounts,y = mcols(bins_y)$tagCounts)
   
-  r <- viridis(100, option = "D")
+  r <- viridis::viridis(100, option = "D")
   p <- ggplot(dt, aes(x,y))+stat_binhex(bins = nr_bins)+
     scale_fill_gradientn(colours = r,trans = 'log10',
-      labels=trans_format('log10', math_format(10^.x)) )
+      labels=trans_format('log10',math_format(10^.x)) )
     
   return(p)
 }
-
-
 
 
 

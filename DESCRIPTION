@@ -12,19 +12,20 @@ Depends:
     R (>= 3.2.1),
     GenomicAlignments (>= 1.0.1),
     GenomicRanges (>= 1.20.5),
+    ggplot2 (>= 1.0),
     data.table (>= 1.9.2)
 Imports:
     methods,
     hexbin (>= 1.2.7.1),
     Rsamtools (>= 1.16.1),
-    ggplot2 (>= 1.0),
+    viridis (>= 0.3.1),
+    scales (>= 0.3.0),
     S4Vectors (>= 0.6.2),
     GenomeInfoDb (>= 1.4.1),
     IRanges (>= 2.2.5),
     parallel
 Suggests:
     knitr (>= 1.10),
-    viridis (>= 0.3.1),
     BiocStyle
 VignetteBuilder: knitr
 biocViews: ChIPSeq, ChIPExo, Sequencing, Visualization, Coverage, Alignment, DataImport
