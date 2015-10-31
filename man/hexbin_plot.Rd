@@ -10,9 +10,9 @@ file_y <- system.file("extdata","example",
 reads_x <- create_reads(file_x)
 reads_y <- create_reads(file_y)
 
-hexbin_plot(reads_x,reads_y,1e3,80)+xlim(0,500)+ylim(0,500)
-hexbin_plot(reads_x,reads_y,1e3,80,frag_len = 200)+xlim(0,500)+ylim(0,500)
-hexbin_plot(reads_x,reads_y,1e3,80,frag_len = 2000)+xlim(0,500)+ylim(0,500)}
+hexbin_plot(reads_x,reads_y,1e3)+xlim(0,500)+ylim(0,500)
+hexbin_plot(reads_x,reads_y,1e3frag_len = 200)+xlim(0,500)+ylim(0,500)
+hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000)+xlim(0,500)+ylim(0,500)}
 \alias{hexbin_plot}
 \alias{hexbin_plot
 
@@ -24,12 +24,13 @@ file_y <- system.file("extdata","example",
 reads_x <- create_reads(file_x)
 reads_y <- create_reads(file_y)
 
-hexbin_plot(reads_x,reads_y,1e3,80)+xlim(0,500)+ylim(0,500)
-hexbin_plot(reads_x,reads_y,1e3,80,frag_len = 200)+xlim(0,500)+ylim(0,500)
-hexbin_plot(reads_x,reads_y,1e3,80,frag_len = 2000)+xlim(0,500)+ylim(0,500)}
+hexbin_plot(reads_x,reads_y,1e3)+xlim(0,500)+ylim(0,500)
+hexbin_plot(reads_x,reads_y,1e3frag_len = 200)+xlim(0,500)+ylim(0,500)
+hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000)+xlim(0,500)+ylim(0,500)}
 \title{Creates a quick hexbin plot to check the relationship between two reads objects}
 \usage{
-hexbin_plot(reads_x, reads_y, bin_size, nr_bins, chrom = NULL, frag_len = 1)
+hexbin_plot(reads_x, reads_y, bin_size, nr_bins = 100, chrom = NULL,
+  frag_len = 1)
 }
 \arguments{
 \item{reads_x}{A reads object that corresponds to the x-axis}
@@ -38,7 +39,7 @@ hexbin_plot(reads_x, reads_y, bin_size, nr_bins, chrom = NULL, frag_len = 1)
 
 \item{bin_size}{A integer value used to partition the chromosome}
 
-\item{nr_bins}{Integer value with the number of bins used to build the plot}
+\item{nr_bins}{Integer value with the number of bins used to build the plot. The default value is 100}
 
 \item{chrom}{A GRanges object specifying the genome to bin. The maximum length used to create the bins
 is gonna be used the integer part of (chromLen / fragLen) times fragLen for each chromosome.}
