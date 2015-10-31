@@ -12,7 +12,6 @@
 ##' 
 ##' @param frag_len An integer value used to extend the fragments. The default value is one, to count only the 5' ends 
 ##' that overlaps the bins
-##' 
 ##'
 ##' @export
 ##'
@@ -83,4 +82,58 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
 }
 
 ###############################################################################333
+
+##' Creates a quick hexbin plot to check the relationship between two reads objects
+##' 
+##' @description Creates a quick hexbin plot to visualize the relationship between 
+##' two reads objects
+##' 
+##' @param reads_x A reads object that corresponds to the x-axis
+##' 
+##' @param reads_y Another reads object, this one correspond to the y-axis
+##' 
+##' @param bin_size A integer value used to partition the chromosome 
+##'
+##' @param reads A reads object
+##'
+##' @param chrom A GRanges object specifying the genome to bin. The maximum length used to create the bins
+##' is gonna be used the integer part of (chromLen / fragLen) times fragLen for each chromosome.
+##' 
+##' @param frag_len An integer value used to extend the fragments. The default value is one, to count only the 5' ends 
+##' that overlaps the bins
+##'
+##' @export
+##' 
+##' @return A ggplot object with the hexbin plot
+##' 
+##' @rdname hexbin_plot
+##' @name hexbin_plot
+##' 
+## @examples 
+hexbin_plot <- function(reads_x,reads_y,bin_size,chrom = NULL, frag_len = 1)
+{
+  stopifnot(class(reads_x) == "reads")
+  stopifnot(class(reads_y) == "reads")
+  stopifnot(bin_size > 0)
+  stopifnot(frag_len > 1)
+  
+  
+
+  
+    
+  
+  
+  
+}
+
+
+
+
+
+
+
+
+
+
+
 

@@ -24,6 +24,7 @@ Imports:
     parallel
 Suggests:
     knitr (>= 1.10),
+    viridis (>= 0.3.1),
     BiocStyle
 VignetteBuilder: knitr
 biocViews: ChIPSeq, ChIPExo, Sequencing, Visualization, Coverage, Alignment, DataImport
