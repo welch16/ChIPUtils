@@ -93,6 +93,8 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
 ##' @param reads_y Another reads object, this one correspond to the y-axis
 ##' 
 ##' @param bin_size A integer value used to partition the chromosome 
+##' 
+##' @param nr_bins Integer value with the number of bins used to build the plot
 ##'
 ##' @param reads A reads object
 ##'
@@ -110,20 +112,46 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
 ##' @name hexbin_plot
 ##' 
 ## @examples 
-hexbin_plot <- function(reads_x,reads_y,bin_size,chrom = NULL, frag_len = 1)
+##' file_x <- system.file("extdata","example",
+##'   "encode_K562_H3k4me1_first3chr.sort.bam",package = "ChIPUtils")
+##' file_y <- system.file("extdata","example",
+##'   "encode_K562_H3k27ac_first3chr.sort.bam",package = "ChIPUtils")
+##'   
+##' reads_x <- create_reads(file_x)
+##' reads_y <- create_reads(file_y)
+##'
+##' hexbin_plot(reads_x,reads_y,1e3,80)+xlim(0,500)+ylim(0,500)
+##' hexbin_plot(reads_x,reads_y,1e3,80,frag_len = 200)+xlim(0,500)+ylim(0,500)
+##' hexbin_plot(reads_x,reads_y,1e3,80,frag_len = 2000)+xlim(0,500)+ylim(0,500)
+hexbin_plot <- function(reads_x,reads_y,bin_size,nr_bins,chrom = NULL, frag_len = 1)
 {
   stopifnot(class(reads_x) == "reads")
   stopifnot(class(reads_y) == "reads")
   stopifnot(bin_size > 0)
-  stopifnot(frag_len > 1)
-  
-  
+  stopifnot(frag_len > 0)
+  stopifnot(nr_bins > 1)
 
-  
+  if(is.null(chrom)){
+    all_reads <- mapply(rbind,readsF(reads_x),readsR(reads_x),
+      readsF(reads_y),readsR(reads_y),SIMPLIFY = FALSE)
+    starts <- sapply(all_reads,function(x) min(x[,min(start)], x[,min(end)] ))
+    ends <- sapply(all_reads,function(x) max(x[,max(end)] , x[,max(start)]))
+    chr <- names(starts)
     
+    chrom <- GRanges(chr , ranges = IRanges(start = starts , end = ends),strand = "*")
+    rm(starts,ends,all_reads,chr)
+    
+  }
+
+  bins_x <- create_bins(bin_size,reads_x,chrom = chrom,  frag_len = frag_len )
+  bins_y <- create_bins(bin_size,reads_y,chrom = chrom,  frag_len = frag_len )
   
+  dt <- data.table(x = mcols(bins_x)$tagCounts,y = mcols(bins_y)$tagCounts)
   
-  
+  r <- viridis(100, option = "D")
+  p <- ggplot(dt, aes(x,y))+stat_binhex(bins = nr_bins)+scale_fill_gradientn(colours = r,trans = 'log10')
+    
+  return(p)
 }
 
 
