@@ -74,8 +74,12 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
     gr <- lapply(all_reads,dt2gr)
     names(gr) <- NULL
     suppressWarnings(gr <- do.call(c,gr))
-    if(frag_len > 1){
-      gr <- resize(gr,frag_len)
+    if(!isPET(reads)){
+      if(frag_len > 1){
+        gr <- resize(gr,frag_len)
+      }
+    }else{
+      message("The reads are PET. Therefore the fragments shouldn't be extended")
     }
     tagCounts <- countOverlaps(bins,gr)
     mcols(bins)[["tagCounts"]] <- tagCounts
