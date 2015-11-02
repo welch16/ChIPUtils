@@ -29,7 +29,7 @@ setClass("reads",
     isPET = FALSE
     ))
 
-setValidity("reads",
-  function(object){
-    return(length(object@readsF) == length(object@readsR))
-})            
+#setValidity("reads",
+#  function(object){
+#    return(length(object@readsF) == length(object@readsR))
+#})            
