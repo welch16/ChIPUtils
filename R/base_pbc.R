@@ -17,7 +17,9 @@
 ##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 ##' rr <- create_reads(file)
 ##' PBC(rr)
-
+##' file2 <- system.file("extdata", "ex1.bam", package="Rsamtools", mustWork=TRUE)
+##' rr2 <- create_reads(file2,is_PET = TRUE)
+##' PBC(rr2)
 PBC <- function(reads)
 {
   stopifnot(class(reads) == "reads")
