@@ -4,12 +4,12 @@
 \alias{create_reads}
 \title{Creates a reads object}
 \usage{
-create_reads(readsFile, isPET = FALSE)
+create_reads(reads_file, is_PET = FALSE)
 }
 \arguments{
-\item{readsFile}{Name of the bam file with the aligned reads}
+\item{reads_file}{Name of the bam file with the aligned reads}
 
-\item{isPET}{Logical indicator to asses if the reads in file are PET or SET. The default value is FALSE indicating SET reads}
+\item{is_PET}{Logical indicator to asses if the reads in file are PET or SET. The default value is FALSE indicating SET reads}
 }
 \value{
 A reads object
@@ -18,8 +18,10 @@ A reads object
 Constructor of the reads class
 }
 \examples{
-file <- system.file("extdata","example",
-  "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
-create_reads(file)
+file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils",mustWork = TRUE)
+rr <- create_reads(file)
+summary(rr)
+file2 <- system.file("extdata", "ex1.bam", package="Rsamtools", mustWork=TRUE)
+create_reads(file2,is_PET = TRUE)
 }
 
