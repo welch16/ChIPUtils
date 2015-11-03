@@ -13,8 +13,7 @@
 ##' @name PBC
 ##'
 ##' @examples
-##' file <- system.file("extdata","example",
-##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
+##' file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 ##' rr <- create_reads(file)
 ##' PBC(rr)
 ##' file2 <- system.file("extdata", "ex1.bam", package="Rsamtools", mustWork=TRUE)
