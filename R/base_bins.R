@@ -102,9 +102,9 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
 ##' 
 ##' @param bin_size A integer value used to partition the chromosome 
 ##' 
+##' @param log A logical flag that indicates if log10 scale is going to be used in the axes. The default value is FALSE
+##' 
 ##' @param nr_bins Integer value with the number of bins used to build the plot. The default value is 100
-##'
-##' @param reads A reads object
 ##'
 ##' @param chrom A GRanges object specifying the genome to bin. The maximum length used to create the bins
 ##' is gonna be used the integer part of (chromLen / fragLen) times fragLen for each chromosome.
@@ -120,18 +120,16 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
 ##' @name hexbin_plot
 ##' 
 ##' @examples 
-##' file_x <- system.file("extdata","example",
-##'   "encode_K562_H3k4me1_first3chr.sort.bam",package = "ChIPUtils")
-##' file_y <- system.file("extdata","example",
-##'   "encode_K562_H3k27ac_first3chr.sort.bam",package = "ChIPUtils")
+##' file_x <- system.file("extdata","example","encode_K562_H3k4me1_first3chr.sort.bam",package = "ChIPUtils")
+##' file_y <- system.file("extdata","example","encode_K562_H3k27ac_first3chr.sort.bam",package = "ChIPUtils")
 ##'   
 ##' reads_x <- create_reads(file_x)
 ##' reads_y <- create_reads(file_y)
 ##'
 ##' hexbin_plot(reads_x,reads_y,1e3)+xlim(0,500)+ylim(0,500)
-##' hexbin_plot(reads_x,reads_y,1e3,frag_len = 200)+xlim(0,500)+ylim(0,500)
 ##' hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000)+xlim(0,500)+ylim(0,500)
-hexbin_plot <- function(reads_x,reads_y,bin_size,nr_bins = 100,chrom = NULL, frag_len = 1)
+##' hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000,log = TRUE)
+hexbin_plot <- function(reads_x,reads_y,bin_size,log = FALSE,nr_bins = 100,chrom = NULL, frag_len = 1)
 {
   stopifnot(class(reads_x) == "reads")
   stopifnot(class(reads_y) == "reads")
@@ -156,11 +154,20 @@ hexbin_plot <- function(reads_x,reads_y,bin_size,nr_bins = 100,chrom = NULL, fra
   
   dt <- data.table(x = mcols(bins_x)$tagCounts,y = mcols(bins_y)$tagCounts)
   
+  if(log){
+    dt[,x := 1 + x]
+    dt[,y := 1 + y]
+  }
+  
   r <- viridis::viridis(100, option = "D")
   p <- ggplot(dt, aes(x,y))+stat_binhex(bins = nr_bins)+
     scale_fill_gradientn(colours = r,trans = 'log10',
       labels=trans_format('log10',math_format(10^.x)) )
-    
+  
+  if(log){
+    p <- p + scale_x_log10()+scale_y_log10()
+  }  
+  
   return(p)
 }
 

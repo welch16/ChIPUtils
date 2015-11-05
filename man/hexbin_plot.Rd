@@ -4,8 +4,8 @@
 \alias{hexbin_plot}
 \title{Creates a quick hexbin plot to check the relationship between two reads objects}
 \usage{
-hexbin_plot(reads_x, reads_y, bin_size, nr_bins = 100, chrom = NULL,
-  frag_len = 1)
+hexbin_plot(reads_x, reads_y, bin_size, log = FALSE, nr_bins = 100,
+  chrom = NULL, frag_len = 1)
 }
 \arguments{
 \item{reads_x}{A reads object that corresponds to the x-axis}
@@ -14,6 +14,8 @@ hexbin_plot(reads_x, reads_y, bin_size, nr_bins = 100, chrom = NULL,
 
 \item{bin_size}{A integer value used to partition the chromosome}
 
+\item{log}{A logical flag that indicates if log10 scale is going to be used in the axes. The default value is FALSE}
+
 \item{nr_bins}{Integer value with the number of bins used to build the plot. The default value is 100}
 
 \item{chrom}{A GRanges object specifying the genome to bin. The maximum length used to create the bins
@@ -21,8 +23,6 @@ is gonna be used the integer part of (chromLen / fragLen) times fragLen for each
 
 \item{frag_len}{An integer value used to extend the fragments. The default value is one, to count only the 5' ends
 that overlaps the bins}
-
-\item{reads}{A reads object}
 }
 \value{
 A ggplot object with the hexbin plot
@@ -32,16 +32,14 @@ Creates a quick hexbin plot to visualize the relationship between
 two reads objects
 }
 \examples{
-file_x <- system.file("extdata","example",
-  "encode_K562_H3k4me1_first3chr.sort.bam",package = "ChIPUtils")
-file_y <- system.file("extdata","example",
-  "encode_K562_H3k27ac_first3chr.sort.bam",package = "ChIPUtils")
+file_x <- system.file("extdata","example","encode_K562_H3k4me1_first3chr.sort.bam",package = "ChIPUtils")
+file_y <- system.file("extdata","example","encode_K562_H3k27ac_first3chr.sort.bam",package = "ChIPUtils")
 
 reads_x <- create_reads(file_x)
 reads_y <- create_reads(file_y)
 
 hexbin_plot(reads_x,reads_y,1e3)+xlim(0,500)+ylim(0,500)
-hexbin_plot(reads_x,reads_y,1e3,frag_len = 200)+xlim(0,500)+ylim(0,500)
 hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000)+xlim(0,500)+ylim(0,500)
+hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000,log = TRUE)
 }
 
