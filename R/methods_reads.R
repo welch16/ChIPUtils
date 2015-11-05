@@ -119,7 +119,11 @@ setMethod("strand_cross_corr",
     chr <- names(readsF(object))
     dt_chr <- chrom.sizes[,1,with = FALSE]
     
-    stopifnot(any(!chr %in% dt_chr))
+    if(length(chr) == 1){
+      stopifnot(chr %in% dt_chr)
+    }else{
+      stopifnot(any(!chr %in% dt_chr))
+    }
     
     setnames(chrom.sizes,names(chrom.sizes),c("chr","size"))
     setkey(chrom.sizes,"chr")
