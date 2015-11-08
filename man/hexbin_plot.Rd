@@ -4,8 +4,8 @@
 \alias{hexbin_plot}
 \title{Creates a quick hexbin plot to check the relationship between two reads objects}
 \usage{
-hexbin_plot(reads_x, reads_y, bin_size, log = FALSE, nr_bins = 100,
-  chrom = NULL, frag_len = 1)
+hexbin_plot(reads_x, reads_y, bin_size, log = FALSE, ma = FALSE,
+  nr_bins = 100, chrom = NULL, frag_len = 1)
 }
 \arguments{
 \item{reads_x}{A reads object that corresponds to the x-axis}
@@ -15,6 +15,9 @@ hexbin_plot(reads_x, reads_y, bin_size, log = FALSE, nr_bins = 100,
 \item{bin_size}{A integer value used to partition the chromosome}
 
 \item{log}{A logical flag that indicates if log10 scale is going to be used in the axes. The default value is FALSE}
+
+\item{ma}{A logical flag that indicates if there is going to be the change of variable M := log2(x*y) and A := log2(x/y),
+in the case that both log and ma are true, log is going to be ignored}
 
 \item{nr_bins}{Integer value with the number of bins used to build the plot. The default value is 100}
 
@@ -32,8 +35,10 @@ Creates a quick hexbin plot to visualize the relationship between
 two reads objects
 }
 \examples{
-file_x <- system.file("extdata","example","encode_K562_H3k4me1_first3chr.sort.bam",package = "ChIPUtils")
-file_y <- system.file("extdata","example","encode_K562_H3k27ac_first3chr.sort.bam",package = "ChIPUtils")
+file_x <- system.file("extdata","example",
+  "encode_K562_H3k4me1_first3chr.sort.bam",package = "ChIPUtils")
+file_y <- system.file("extdata","example",
+  "encode_K562_H3k27ac_first3chr.sort.bam",package = "ChIPUtils")
 
 reads_x <- create_reads(file_x)
 reads_y <- create_reads(file_y)
@@ -41,5 +46,6 @@ reads_y <- create_reads(file_y)
 hexbin_plot(reads_x,reads_y,1e3)+xlim(0,500)+ylim(0,500)
 hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000)+xlim(0,500)+ylim(0,500)
 hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000,log = TRUE)
+hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000,ma = TRUE)
 }
 
