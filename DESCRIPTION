@@ -19,7 +19,7 @@ Imports:
     hexbin (>= 1.2.7.1),
     Rsamtools (>= 1.16.1),
     viridis (>= 0.3.1),
-    scales (>= 0.3.0),
+    scales (>= 0.2.5),
     S4Vectors (>= 0.6.2),
     GenomeInfoDb (>= 1.4.1),
     IRanges (>= 2.2.5),
