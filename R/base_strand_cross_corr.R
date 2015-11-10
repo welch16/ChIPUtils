@@ -30,6 +30,7 @@
 ##' local_strand_cross_corr(reads,region,shift = 1:5)
 local_strand_cross_corr <- function(reads, region,shift = 1:300 )
 {
+  
   stopifnot(length(region) == 1)
   stopifnot(class(region) == "GRanges")
   chr <- as.character(seqnames(region))
@@ -40,6 +41,10 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
 
   ovF <- findOverlaps(region, rF)
   ovR <- findOverlaps(region, rR)
+
+  rF <- rF[subjectHits(ovF)]
+  rR <- rR[subjectHits(ovR)]
+
   
   if(  length(ovF)== 0 | length(ovR) == 0){
     cross.corr <- 0
