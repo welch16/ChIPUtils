@@ -35,8 +35,8 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
   chr <- as.character(seqnames(region))
   stopifnot( chr %in% names(readsF(reads)) & chr %in% names(readsR(reads))) 
 
-  rF <- dt2gr(readsF(reads)[[chr]])
-  rR <- dt2gr(readsR(reads)[[chr]])
+  rF <- copy(dt2gr(readsF(reads)[[chr]]))
+  rR <- copy(dt2gr(readsR(reads)[[chr]]))
 
   ovF <- findOverlaps(region, rF)
   ovR <- findOverlaps(region, rR)
