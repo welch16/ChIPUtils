@@ -175,6 +175,7 @@ setGeneric("nreads",
 ##' genome of interest. It could be a \code{data.table} or a\code{character} pointing
 ##' to any of the genomes that are available in the package. The \code{data.table} must have two columns
 ##' the chromosome and its size.
+##' @param parallel A logical value indicating if the process is gonna be run in parallel
 ##'
 ##' @return A \code{data.table} with two columns, shift and its respect strand cross
 ##' correlation
@@ -188,9 +189,9 @@ setGeneric("nreads",
 ##' shift <- seq(10,100,by = 10)
 ##' chrom.sizes <- system.file("extdata","chrom.sizes","hg19.chrom.sizes",package = "ChIPUtils",mustWork = TRUE)
 ##' chrom.sizes <- data.table(read.table(chrom.sizes))
-##' strand_cross_corr(rr,shift, chrom.sizes)
+##' strand_cross_corr(rr,shift, chrom.sizes,FALSE)
 setGeneric("strand_cross_corr",
-  function(object,shift,chrom.sizes)
+  function(object,shift,chrom.sizes,parallel)
   standardGeneric("strand_cross_corr")
 )
 

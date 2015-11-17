@@ -113,8 +113,8 @@ setMethod("nreads",
 ##' @exportMethod strand_cross_corr
 setMethod("strand_cross_corr",
   signature = signature(object = "reads",shift = "numeric",
-      chrom.sizes = "data.table"),
-  definition = function(object,shift,chrom.sizes){
+      chrom.sizes = "data.table",parallel = "logical"),
+  definition = function(object,shift,chrom.sizes,parallel = FALSE){
 
     chr <- names(readsF(object))
     dt_chr <- chrom.sizes[,1,with = FALSE]
@@ -132,8 +132,13 @@ setMethod("strand_cross_corr",
     regions <- GRanges(seqnames = chr,ranges = IRanges(start = 1,
       end = sizes[,(size)]),strand = "*")
     regions <- split(regions,chr)
-    scc <- lapply(regions,function(x) local_strand_cross_corr(object,x,shift) )
-    sizes[,w := size / sum(size)]
+    if(parallel ){
+      mc <- detectCores()
+      scc <- mclapply(regions,function(x) local_strand_cross_corr(object,x,shift) ,mc.cores = mc)
+    }else{
+      scc <- lapply(regions,function(x) local_strand_cross_corr(object,x,shift) )
+    }
+    sizes[,w := size / as.numeric(sum(size))]
     weights <- sizes[,(w)]
     nms <- names(scc[[1]])
     scc <- do.call(rbind,scc)

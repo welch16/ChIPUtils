@@ -3,13 +3,13 @@
 \docType{methods}
 \name{strand_cross_corr}
 \alias{strand_cross_corr}
-\alias{strand_cross_corr,reads,numeric,data.table-method}
+\alias{strand_cross_corr,reads,numeric,data.table,logical-method}
 \title{strand_cross_corr methods}
 \usage{
-strand_cross_corr(object, shift, chrom.sizes)
+strand_cross_corr(object, shift, chrom.sizes, parallel)
 
-\S4method{strand_cross_corr}{reads,numeric,data.table}(object, shift,
-  chrom.sizes)
+\S4method{strand_cross_corr}{reads,numeric,data.table,logical}(object, shift,
+  chrom.sizes, parallel = FALSE)
 }
 \arguments{
 \item{object}{A \code{reads} object}
@@ -20,6 +20,8 @@ strand_cross_corr(object, shift, chrom.sizes)
 genome of interest. It could be a \code{data.table} or a\code{character} pointing
 to any of the genomes that are available in the package. The \code{data.table} must have two columns
 the chromosome and its size.}
+
+\item{parallel}{A logical value indicating if the process is gonna be run in parallel}
 }
 \value{
 A \code{data.table} with two columns, shift and its respect strand cross
@@ -35,6 +37,6 @@ rr <- create_reads(file)
 shift <- seq(10,100,by = 10)
 chrom.sizes <- system.file("extdata","chrom.sizes","hg19.chrom.sizes",package = "ChIPUtils",mustWork = TRUE)
 chrom.sizes <- data.table(read.table(chrom.sizes))
-strand_cross_corr(rr,shift, chrom.sizes)
+strand_cross_corr(rr,shift, chrom.sizes,FALSE)
 }
 
