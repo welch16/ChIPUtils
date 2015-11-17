@@ -23,6 +23,6 @@ SSD <- function(reads)
   cover <- lapply(gr,coverage)
   w <- sapply(cover,length)
   out <- weighted.mean(sapply(cover,sd),w=w)
-  out <- out / sqrt(sum(w))
+  out <- out / sqrt(sum(as.numeric(w)))
   return(out)
 }
