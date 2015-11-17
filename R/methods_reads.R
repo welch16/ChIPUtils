@@ -142,7 +142,7 @@ setMethod("strand_cross_corr",
     weights <- sizes[,(w)]
     nms <- names(scc[[1]])
     scc <- do.call(rbind,scc)
-    scc[,weighted.mean(cross.corr,w = weights),by = shift]
+    scc <- scc[,weighted.mean(cross.corr,w = weights),by = shift]
     setnames(scc,names(scc),nms)
     return(scc)
   }
