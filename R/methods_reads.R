@@ -138,7 +138,7 @@ setMethod("strand_cross_corr",
     }else{
       scc <- lapply(regions,function(x) local_strand_cross_corr(object,x,shift) )
     }
-    sizes[,w := size / as.numeric(sum(size))]
+    sizes[,w := size / sum(as.numeric(size))]
     weights <- sizes[,(w)]
     nms <- names(scc[[1]])
     scc <- do.call(rbind,scc)
