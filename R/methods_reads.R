@@ -127,7 +127,6 @@ setMethod("strand_cross_corr",
     
     setnames(chrom.sizes,names(chrom.sizes),c("chr","size"))
     setkey(chrom.sizes,"chr")
-    
     sizes <- chrom.sizes[chr]
     regions <- GRanges(seqnames = chr,ranges = IRanges(start = 1,
       end = sizes[,(size)]),strand = "*")
@@ -138,11 +137,11 @@ setMethod("strand_cross_corr",
     }else{
       scc <- lapply(regions,function(x) local_strand_cross_corr(object,x,shift) )
     }
-    sizes[,w := size / sum(as.numeric(size))]
-    weights <- sizes[,(w)]
+    weights <- copy(summary(object))
+    weights[ , w := total / sum(as.numeric(total))]
     nms <- names(scc[[1]])
     scc <- do.call(rbind,scc)
-    scc <- scc[,weighted.mean(cross.corr,w = weights),by = shift]
+    scc <- scc[,weighted.mean(cross.corr,w = weights[,(w)]),by = shift]
     setnames(scc,names(scc),nms)
     return(scc)
   }
