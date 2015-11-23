@@ -127,10 +127,11 @@ setMethod("strand_cross_corr",
     
     setnames(chrom.sizes,names(chrom.sizes),c("chr","size"))
     setkey(chrom.sizes,"chr")
-    sizes <- chrom.sizes[chr]
-    regions <- GRanges(seqnames = chr,ranges = IRanges(start = 1,
-      end = sizes[,(size)]),strand = "*")
-    regions <- split(regions,chr)
+    sizes <- chrom.sizes[chr,nomatch = 0]
+    regions <- GRanges(seqnames = sizes[,(chr)],
+      ranges = IRanges(start = 1,end = sizes[,(size)]),
+      strand = "*")
+    regions <- split(regions, as.character(seqnames(regions)))
     if(parallel ){
       mc <- detectCores()
       scc <- mclapply(regions,function(x) local_strand_cross_corr(object,x,shift) ,mc.cores = mc)
@@ -139,6 +140,9 @@ setMethod("strand_cross_corr",
     }
     weights <- copy(summary(object))
     weights[ , w := total / sum(as.numeric(total))]
+    cc <- as.character(sizes[,(chr)])
+    setkey(weights,chr)
+    weights <- weights[chr %in%  cc ] 
     nms <- names(scc[[1]])
     scc <- do.call(rbind,scc)
     scc <- scc[,weighted.mean(cross.corr,w = weights[,(w)]),by = shift]
