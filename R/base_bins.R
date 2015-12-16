@@ -123,8 +123,9 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
 ##' @name hexbin_plot
 ##' 
 ##' @examples 
+##' \dontrun{
 ##' file_x <- system.file("extdata","example",
-##'   "encode_K562_H3k4me1_first3chr.sort.bam",package = "ChIPUtils")
+##'   "encode_K562_Ctcf_first3chr.sort.bam",package = "ChIPUtils")
 ##' file_y <- system.file("extdata","example",
 ##'   "encode_K562_H3k27ac_first3chr.sort.bam",package = "ChIPUtils")
 ##'   
@@ -135,6 +136,7 @@ create_bins <- function(bin_size, reads = NULL , chrom = NULL, frag_len = 1)
 ##' hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000)+xlim(0,500)+ylim(0,500)
 ##' hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000,log = TRUE)
 ##' hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000,ma = TRUE)
+##' }
 hexbin_plot <- function(reads_x,reads_y,bin_size,log = FALSE,ma = FALSE,nr_bins = 100,chrom = NULL, frag_len = 1)
 {
   stopifnot(class(reads_x) == "reads")

@@ -35,8 +35,9 @@ Creates a quick hexbin plot to visualize the relationship between
 two reads objects
 }
 \examples{
+\dontrun{
 file_x <- system.file("extdata","example",
-  "encode_K562_H3k4me1_first3chr.sort.bam",package = "ChIPUtils")
+  "encode_K562_Ctcf_first3chr.sort.bam",package = "ChIPUtils")
 file_y <- system.file("extdata","example",
   "encode_K562_H3k27ac_first3chr.sort.bam",package = "ChIPUtils")
   
@@ -47,5 +48,6 @@ hexbin_plot(reads_x,reads_y,1e3)+xlim(0,500)+ylim(0,500)
 hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000)+xlim(0,500)+ylim(0,500)
 hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000,log = TRUE)
 hexbin_plot(reads_x,reads_y,1e3,frag_len = 2000,ma = TRUE)
+}
 }
 
