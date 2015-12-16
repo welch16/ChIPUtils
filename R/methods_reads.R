@@ -3,7 +3,7 @@ setMethod("show",
   signature = signature(object = "reads"),
   definition = function(object){
       cat("Reads in", object@readsFile,": " ,object@nReads,"\n")
-      cat("The reads are", ifelse(isPET(object), "PET", "SET"))
+      cat("The reads are", ifelse(isPET(object), "PET", "SET\n"))
   }
 )
 

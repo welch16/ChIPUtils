@@ -1,11 +1,13 @@
 Package: ChIPUtils
 Type: Package
-Title: ChIPUtils - A package to perform exploratory analysis of ChIP data and most commonly used QC measures
+Title: ChIPUtils - A package to perform exploratory analysis of ChIP data and
+    most commonly used QC measures
 Version: 0.99.0
 Date: 2015-09-25
 Author: Rene Welch <welch@stat.wisc.edu>
 Maintainer: Rene Welch <welch@stat.wisc.edu>
-Description: A package to perform exploratory analysis and most commonly used QC measures of ChIPseq and ChIPexo data
+Description: A package to perform exploratory analysis and most commonly used QC
+    measures of ChIPseq and ChIPexo data
 URL: https:github.com/welch16/ChIPUtils
 License: GPL (>=2)
 Depends:
@@ -28,4 +30,6 @@ Suggests:
     knitr (>= 1.10),
     BiocStyle
 VignetteBuilder: knitr
-biocViews: ChIPSeq, ChIPExo, Sequencing, Visualization, Coverage, Alignment, DataImport
+biocViews: ChIPSeq, ChIPExo, Sequencing, Visualization, Coverage, Alignment,
+    DataImport
+RoxygenNote: 5.0.1
