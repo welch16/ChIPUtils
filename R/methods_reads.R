@@ -7,7 +7,7 @@ setMethod("show",
   }
 )
 
-###############################################################################333
+##################################################################################
 
 ##' @rdname isPET-methods
 ##' @aliases isPET
@@ -18,7 +18,7 @@ setMethod("isPET",
   definition = function(object)object@isPET
 )
 
-###############################################################################333
+##################################################################################
 
 ##' @rdname readsFile-methods
 ##' @aliases readsFile
@@ -29,7 +29,7 @@ setMethod("readsFile",
   definition = function(object)object@readsFile
 )
 
-###############################################################################333
+##################################################################################
 
 ##' @rdname readsF-methods
 ##' @aliases readsF
@@ -52,7 +52,7 @@ setReplaceMethod("readsF",
   }
 )                 
 
-###############################################################################333
+##################################################################################
 
 ##' @rdname readsR-methods
 ##' @aliases readsR
@@ -75,7 +75,7 @@ setReplaceMethod("readsR",
   }
 )                 
 
-###############################################################################333
+##################################################################################
 
 ##' @rdname summary-methods
 ##' @aliases summary
@@ -92,7 +92,7 @@ setMethod("summary",
   }
 )
 
-###############################################################################333
+##################################################################################
 
 ##' @rdname nreads-methods
 ##' @aliases nreads
@@ -105,51 +105,7 @@ setMethod("nreads",
   }
 )
 
-###############################################################################333
+##################################################################################
 
-##' @rdname strand_cross_corr-methods
-##' @aliases strand_cross_corr
-##' @docType methods
-##' @exportMethod strand_cross_corr
-setMethod("strand_cross_corr",
-  signature = signature(object = "reads",shift = "numeric",
-      chrom.sizes = "data.table",parallel = "logical"),
-  definition = function(object,shift,chrom.sizes,parallel = FALSE){
 
-    chr <- names(readsF(object))
-    dt_chr <- chrom.sizes[,1,with = FALSE]
-    
-    if(length(chr) == 1){
-      stopifnot(chr %in% dt_chr)
-    }else{
-      stopifnot(any(!chr %in% dt_chr))
-    }
-    
-    setnames(chrom.sizes,names(chrom.sizes),c("chr","size"))
-    setkey(chrom.sizes,"chr")
-    sizes <- chrom.sizes[chr,nomatch = 0]
-    regions <- GRanges(seqnames = sizes[,(chr)],
-      ranges = IRanges(start = 1,end = sizes[,(size)]),
-      strand = "*")
-    regions <- split(regions, as.character(seqnames(regions)))
-    if(parallel ){
-      mc <- detectCores()
-      scc <- mclapply(regions,function(x) local_strand_cross_corr(object,x,shift) ,mc.cores = mc)
-    }else{
-      scc <- lapply(regions,function(x) local_strand_cross_corr(object,x,shift) )
-    }
-    weights <- copy(summary(object))
-    weights[ , w := total / sum(as.numeric(total))]
-    cc <- as.character(sizes[,(chr)])
-    setkey(weights,chr)
-    weights <- weights[chr %in%  cc ] 
-    nms <- names(scc[[1]])
-    scc <- do.call(rbind,scc)
-    scc <- scc[,weighted.mean(cross.corr,w = weights[,(w)]),by = shift]
-    setnames(scc,names(scc),nms)
-    return(scc)
-  }
-)          
-
-###############################################################################333
 
