@@ -4,7 +4,7 @@
 \alias{local_strand_cross_corr}
 \title{Calculate the strand cross correlation for a specific genome region}
 \usage{
-local_strand_cross_corr(reads, region, shift = 1:300)
+local_strand_cross_corr(reads, region, shift = 1:300, perm = FALSE)
 }
 \arguments{
 \item{reads}{A reads object}
@@ -12,6 +12,9 @@ local_strand_cross_corr(reads, region, shift = 1:300)
 \item{region}{A GRanges object with length 1}
 
 \item{shift}{An integer vector, the default value is \code{1:300}}
+
+\item{perm}{A boolean value, indicating if it is gonna permute 
+the fragments strands, the default value is \code{FALSE}}
 }
 \value{
 A data.table with two columns \code{shift} and \code{cross.corr}
@@ -31,5 +34,6 @@ local_strand_cross_corr(reads,region,shift = seq(10,300,by = 10))
 ## if the regions is empty, cross.corr = 0:
 region <- GRanges(seqnames = "chr1",ranges = IRanges(start = 1,end = 1e4))
 local_strand_cross_corr(reads,region,shift = 1:5)
+local_strand_cross_corr(reads,region,shift = 1:5,perm = TRUE)
 }
 

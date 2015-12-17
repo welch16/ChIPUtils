@@ -10,6 +10,9 @@
 ##'
 ##' @param shift An integer vector, the default value is \code{1:300}
 ##'
+##' @param perm A boolean value, indicating if it is gonna permute 
+##' the fragments strands, the default value is \code{FALSE}
+##'
 ##' @export
 ##'
 ##' @return A data.table with two columns \code{shift} and \code{cross.corr}
@@ -28,7 +31,8 @@
 ##' ## if the regions is empty, cross.corr = 0:
 ##' region <- GRanges(seqnames = "chr1",ranges = IRanges(start = 1,end = 1e4))
 ##' local_strand_cross_corr(reads,region,shift = 1:5)
-local_strand_cross_corr <- function(reads, region,shift = 1:300 )
+##' local_strand_cross_corr(reads,region,shift = 1:5,perm = TRUE)
+local_strand_cross_corr <- function(reads, region,shift = 1:300 ,perm = FALSE)
 {
   
   stopifnot(length(region) == 1)
@@ -45,6 +49,14 @@ local_strand_cross_corr <- function(reads, region,shift = 1:300 )
   rF <- rF[subjectHits(ovF)]
   rR <- rR[subjectHits(ovR)]
 
+  if(perm){
+    allr <- c(rF,rR)
+    strand(allr) <- sample(as.character(strand(allr)))
+    allr <- split(allr,as.character(strand(allr)))
+    rF <- allr[["+"]]
+    rR <- allr[["-"]]
+    rm(allr)
+  }
   
   if(  length(ovF)== 0 | length(ovR) == 0){
     cross.corr <- 0
