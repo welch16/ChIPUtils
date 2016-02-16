@@ -131,7 +131,7 @@ setMethod("strand_cross_corr",
             dt_chr <- chrom.sizes[,1,with = FALSE]
             
             if(length(chr) == 1){
-              stopifnot(chr %in% dt_chr)
+              stopifnot(chr %in% as.character(dt_chr[[1]]))
             }else{
               stopifnot(any(!chr %in% dt_chr))
             }
