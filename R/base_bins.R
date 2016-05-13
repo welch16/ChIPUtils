@@ -144,16 +144,26 @@ hexbin_plot <- function(reads_x,reads_y,bin_size,log = FALSE,ma = FALSE,nr_bins 
   stopifnot(bin_size > 0)
   stopifnot(frag_len > 0)
   stopifnot(nr_bins > 1)
-
+  
   if(is.null(chrom)){
-    all_reads <- mapply(rbind,readsF(reads_x),readsR(reads_x),
-      readsF(reads_y),readsR(reads_y),SIMPLIFY = FALSE)
-    starts <- sapply(all_reads,function(x) min(x[,min(start)], x[,min(end)] ))
+
+    chr_x <- intersect(
+      names(readsF(reads_x)),names(readsR(reads_x)))
+    chr_y <- intersect(
+      names(readsF(reads_y)),names(readsR(reads_y)))
+    common <- intersect(chr_x,chr_y)
+
+    all_reads <- mapply(rbind,
+      readsF(reads_x)[common],readsR(reads_x)[common],
+      readsF(reads_y)[common],readsR(reads_y)[common],SIMPLIFY = FALSE)
+    starts <- sapply(all_reads,
+      function(x) min(x[,min(start)], x[,min(end)] ))
     ends <- sapply(all_reads,function(x) max(x[,max(end)] , x[,max(start)]))
     chr <- names(starts)
     
-    chrom <- GRanges(chr , ranges = IRanges(start = starts , end = ends),strand = "*")
-    rm(starts,ends,all_reads,chr)
+    chrom <- GRanges(chr ,
+      ranges = IRanges(start = starts , end = ends),strand = "*")
+    rm(starts,ends,all_reads,chr,chr_x,chr_y,common)
     
   }
 

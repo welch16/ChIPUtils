@@ -126,7 +126,7 @@ setMethod("strand_cross_corr",
           signature = signature(object = "reads",shift = "numeric",
                                 chrom.sizes = "data.table",parallel = "logical"),
           definition = function(object,shift,chrom.sizes,parallel = FALSE){
-            
+
             chr <- names(readsF(object))
             dt_chr <- chrom.sizes[,1,with = FALSE]
             
