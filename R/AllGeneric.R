@@ -1,50 +1,41 @@
 
-##' readsFile methods
-##'
-##' readsFile returns the name of the file with the aligned reads
-##'
-##' @param object A \code{reads} object
-##'
-##' @return A character with the name of the file with the aligned reads
-##'
-##' @export
-##' @docType methods
-##' @seealso \code{\link{reads-class}}
-##' @rdname readsFile-methods
-##' @examples
-##' 
-##' file <- system.file("extdata","example",
-##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
-##' rr <- create_reads(file)
-##' readsFile(rr)
-setGeneric("readsFile",
-  function(object)
-  standardGeneric("readsFile")
-)       
-
-##################################################################################
-
 ##' isPET methods
 ##'
 ##' isPET returns a logical value indicating if the object isPET
 ##'
-##' @param object A \code{reads} object
+##' @param object A \code{ChIPdata} object
 ##'
 ##' @return A logical value indicating if the reads are PET (TRUE) or SET (FALSE)
 ##'
 ##' @export
 ##' @docType methods
-##' @seealso \code{\link{reads-class}}
+##' @seealso \code{\link{ChIPData-class}}
 ##' @rdname isPET-methods
-##' @examples
-##' file <- system.file("extdata","example",
-##'   "encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
-##' rr <- create_reads(file)
-##' isPET(rr)
 setGeneric("isPET",
            function(object)
              standardGeneric("isPET")
 )           
+
+##' reads methods
+##' 
+##' reads returns either a \code{GAlignments} or \code{GAlignmentPairs} object
+##' depending on if the reads are SE or PE
+##' 
+##' @param object A \code{ChIPdata} object
+##' 
+##' @return The aligned reads of the experiment as \code{GAlignments} or 
+##' \code{GAlignmentPairs} depending on if the reads are SE or PE
+##' 
+##' @export
+##' @docType methods
+##' @seealso \code{\link{ChIPData-class}}
+##' 
+##' @rdname reads-methods
+setGeneric("reads",
+           function(object)
+             standardGeneric("reads"))
+
+
 
 ##################################################################################
 

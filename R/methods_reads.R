@@ -9,28 +9,6 @@ setMethod("show",
 
 ##################################################################################
 
-##' @rdname isPET-methods
-##' @aliases isPET
-##' @docType method
-##' @exportMethod isPET
-setMethod("isPET",
-  signature = signature(object = "reads"),
-  definition = function(object)object@isPET
-)
-
-##################################################################################
-
-##' @rdname readsFile-methods
-##' @aliases readsFile
-##' @docType method
-##' @exportMethod readsFile
-setMethod("readsFile",
-  signature = signature(object = "reads"),
-  definition = function(object)object@readsFile
-)
-
-##################################################################################
-
 ##' @rdname readsF-methods
 ##' @aliases readsF
 ##' @docType methods

@@ -1,10 +1,16 @@
 
+galignments2tibble <- function(galignment)
+{
+  out = as(galignment,"data.frame")
+  as_tibble(out)
+}
+
 ##' Calculates the PCR bottleneck coefficient
 ##'
 ##' Calculates the PCR bottleneck coefficient defined as:
 ##' PBC = [# of positions with exactly 1 read mapped] / [# of positions with 1 or more reads mapped ]
 ##'
-##' @param reads Reads object
+##' @param chipdata chipdata object
 ##'
 ##' @export
 ##'
@@ -12,27 +18,38 @@
 ##' @rdname PBC
 ##' @name PBC
 ##'
-##' @examples
-##' file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
-##' rr <- create_reads(file)
-##' PBC(rr)
-##' file2 <- system.file("extdata", "ex1.bam", package="Rsamtools", mustWork=TRUE)
-##' rr2 <- create_reads(file2,is_PET = TRUE)
-##' PBC(rr2)
-PBC <- function(reads)
+## @examples
+## file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
+## chipdata = ChIPdata(file,isPE =  FALSE)
+## PBC(chipdata)
+PBC <- function(chipdata)
 {
-  stopifnot(class(reads) == "reads")
-  if(!isPET(reads)){ ## SET
-    tagsF <- lapply(readsF(reads),
-      function(x){
-        out <- x[,length(end),by = start]
-        setnames(out,names(out),c("position","tags"))
-        return(out)})
-    tagsR <- lapply(readsR(reads),
-      function(x){
-        out <- x[,length(start),by = end]
-        setnames(out,names(out),c("position","tags"))
-        return(out)})
+  browser()
+  stopifnot(class(chipdata) == "ChIPdata")
+  if(!isPET(chipdata)){ ## SET
+    alignedReads <- reads(chipdata)
+    alignedReads <- galignments2tibble(alignedReads)
+    
+    tagsF <- alignedReads %>% 
+      dplyr::filter(strand == "+") %>% 
+      dplyr::rename(pos = start) %>% 
+      group_by(seqnames,
+               pos) %>% 
+      dplyr::summarise(
+        N = n(),
+        N1 = length(unique(pos)) 
+      ) %>% ungroup()
+    
+    tagsR <- alignedReads %>% 
+      dplyr::filter(strand == "-") %>% 
+      dplyr::rename(pos = end) %>% 
+      group_by(seqnames,
+               pos) %>% 
+      dplyr::summarise(
+        N = n(),
+        N1 = length(unique(pos))
+      ) %>% ungroup()
+
   }else{ ## PET
     rF <- readsF(reads)
     rR <- readsR(reads)

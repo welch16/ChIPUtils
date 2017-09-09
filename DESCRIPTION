@@ -32,4 +32,4 @@ Suggests:
 VignetteBuilder: knitr
 biocViews: ChIPSeq, ChIPExo, Sequencing, Visualization, Coverage, Alignment,
     DataImport
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
