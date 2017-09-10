@@ -2,7 +2,7 @@
 
 export(PBC)
 export(SCC)
-export(create_bins)
+export(createBins)
 export(galignments2tibble)
 export(hexbin_plot)
 export(isPET)
