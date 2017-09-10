@@ -4,8 +4,7 @@
 \alias{MAPlot}
 \title{Creates a quick MA plot to check the relationship between two reads objects}
 \usage{
-MAPlot(x, y, binSize, log = FALSE, nrBins = 40, chrom = NULL,
-  fragLen = 1)
+MAPlot(x, y, binSize, nrBins = 40, chrom = NULL, fragLen = 1)
 }
 \arguments{
 \item{x}{A \code{ChIPdata} object that corresponds to the x-axis}

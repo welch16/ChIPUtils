@@ -25,9 +25,3 @@ bin
 Partitions a chromosome into fixed length bins and counts the number of extended fragments that 
 overlap each bin
 }
-\examples{
-
-file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
-chipdata <- ChIPdata(file,isPE = FALSE)##' chrom <- GRanges(seqnames = "chr1", ranges = IRanges(start = 1,end = 249250621))
-createBins(2000,chipdata = chipdata,chrom = chrom,fragLen = 200)
-}

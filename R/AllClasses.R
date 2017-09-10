@@ -45,6 +45,7 @@ setClass("ChIPdata",
 ##' 
 ##' @aliases ChIPdata, ChIPdata-class
 ##' @docType class
+##' @export
 ChIPdata <- function(bamfile = NULL,reads = NULL,isPE = NULL)
 {
   if(is.null(bamfile) & is.null(reads)){
@@ -126,37 +127,3 @@ ChIPdata <- function(bamfile = NULL,reads = NULL,isPE = NULL)
 }
 
 
-
-# 
-# ##' reads class description
-# ##'
-# ##' Contains the reads obtained in a ChIP experiment separated by strand and then by chromosome. It has one component for each strand which are object of the data.table class with a match column to identify the regions
-# ##'
-# ##' @slot readsFile Character vector with the name of the reads file to be used
-# ##' @slot readsF List of data.table objects containing the reads of the ChIP - Seq experiment that have + strand
-# ##' @slot readsR List of data.table object containing the reads of the ChIP - Seq experiment that have - strand
-# ##' @slot nReads Numeric value with the number of reads
-# ##' @slot isPET Logical value indicating if the reads are paired or not
-# ##'
-# ##' @name reads-class
-# ##' @rdname reads-class
-# ##' @exportClass reads
-# setClass("reads",
-#   representation(
-#     readsFile = "character",
-#     readsF = "list",
-#     readsR = "list",
-#     nReads = "numeric",
-#     isPET = "logical"),
-#   prototype = prototype(
-#     readsFile = "",
-#     readsF = list(),
-#     readsR = list(),
-#     nReads = 0,
-#     isPET = FALSE
-#     ))
-# 
-# #setValidity("reads",
-# #  function(object){
-# #    return(length(object@readsF) == length(object@readsR))
-# #})            

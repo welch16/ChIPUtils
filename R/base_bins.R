@@ -21,12 +21,6 @@ NULL
 ##'
 ##' @rdname createBins
 ##' @name createBins
-##'
-##' @examples
-##'
-##' file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
-##' chipdata <- ChIPdata(file,isPE = FALSE)##' chrom <- GRanges(seqnames = "chr1", ranges = IRanges(start = 1,end = 249250621))
-##' createBins(2000,chipdata = chipdata,chrom = chrom,fragLen = 200)
 createBins <- function(binSize, chipdata = NULL , chrom = NULL, fragLen = 1)
 {
   stopifnot( !is.null(chipdata) | !is.null(chrom))
@@ -171,7 +165,7 @@ hexbinPlot <- function(x,y,binSize,log = FALSE,nrBins =40,chrom = NULL, fragLen 
 ##' 
 ##' @rdname MAPlot
 ##' @name MAPlot
-MAPlot <- function(x,y,binSize,log = FALSE,nrBins =40,chrom = NULL, fragLen = 1)
+MAPlot <- function(x,y,binSize,nrBins =40,chrom = NULL, fragLen = 1)
 {
   stopifnot(class(x) == "ChIPdata",
             class(y) == "ChIPdata")
