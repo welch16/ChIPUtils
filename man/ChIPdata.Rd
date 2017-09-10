@@ -28,10 +28,3 @@ a \code{ChIPdata} object
 is to contain some of the most commonly used functions in a 
 ChIP-seq/exo/nexus analysis.
 }
-\examples{
-file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
-ChIPdata(bamfile = file,isPE = FALSE)
-
-reads <- readGAlignments(file,param = NULL)
-ChIPdata(reads = reads)
-}

@@ -7,24 +7,31 @@
 ##'
 ##' @return A character vector
 ##'
-##' @rdname possible_chrom_sizes
-##' @name possible_chrom_sizes
+##' @rdname possibleChrSizes
+##' @name possibleChrSizes
 ##'
 ##' @examples
 ##'
-##' possible_chrom_sizes()
+##' possibleChrSizes()
 
-possible_chrom_sizes <- function()
+possibleChrSizes <- function()
 {
-  dr <- system.file("inst","extdata","chrom.sizes",package = "ChIPUtils")
-  sizes <- list.files(dr)
-  chrom <- sapply(strsplit(sizes,".",fixed = TRUE),function(x)x[1])
-  return(chrom)
-
+  data(chromSizes)
+  sizes %>% names()
 }
 
+##' @export
 galignments2tibble <- function(galignment)
 {
   out = as(galignment,"data.frame")
   as_tibble(out)
 }
+
+##' @export
+size2GRanges <- function(tib)
+{
+  with(tib,
+       GRanges(seqnames = chr,
+               IRanges(start = 1, width = size)))
+}
+
