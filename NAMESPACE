@@ -2,7 +2,6 @@
 
 export(PBC)
 export(create_bins)
-export(create_reads)
 export(hexbin_plot)
 export(isPET)
 export(local_strand_cross_corr)
