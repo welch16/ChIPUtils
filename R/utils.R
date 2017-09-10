@@ -35,3 +35,14 @@ size2GRanges <- function(tib)
                IRanges(start = 1, width = size)))
 }
 
+genomeFromChIPdata <- function(chipdata)
+{
+  reads <- granges(reads(chipdata))
+  chr <- seqlevelsInUse(reads)
+  starts <- rep_len(1,length(chr))
+  GRanges(
+    seqnames = chr,
+    IRanges(starts,seqlengths(reads))
+  )
+  
+}
