@@ -45,13 +45,6 @@ setClass("ChIPdata",
 ##' 
 ##' @aliases ChIPdata, ChIPdata-class
 ##' @docType class
-##' 
-##' @examples
-##' file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
-##' ChIPdata(bamfile = file,isPE = FALSE)
-##' 
-##' reads <- readGAlignments(file,param = NULL)
-##' ChIPdata(reads = reads)
 ChIPdata <- function(bamfile = NULL,reads = NULL,isPE = NULL)
 {
   if(is.null(bamfile) & is.null(reads)){

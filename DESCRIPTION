@@ -2,7 +2,7 @@ Package: ChIPUtils
 Type: Package
 Title: ChIPUtils - A package to perform exploratory analysis of ChIP data and
     most commonly used QC measures
-Version: 0.99.0
+Version: 0.99.1
 Date: 2015-09-25
 Author: Rene Welch <welch@stat.wisc.edu>
 Maintainer: Rene Welch <welch@stat.wisc.edu>
@@ -15,7 +15,8 @@ Depends:
     GenomicAlignments (>= 1.0.1),
     GenomicRanges (>= 1.20.5),
     ggplot2 (>= 1.0),
-    data.table (>= 1.9.2)
+    dplyr,
+    magrittr,biovizBase
 Imports:
     methods,
     hexbin (>= 1.2.7.1),

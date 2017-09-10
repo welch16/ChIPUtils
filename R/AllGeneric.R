@@ -35,35 +35,24 @@ setGeneric("reads",
            function(object)
              standardGeneric("reads"))
 
-##' strand_cross_corr methods
+##' SCC methods
 ##'
-##' Returns a \code{data.table} with 2 columns: shift and its corresponding
+##' Returns a \code{tibble} with 2 columns: shift and its corresponding
 ##' strand cross correlation as defined in Kharchenko et al. 2008
 ##'
 ##' @param object A \code{reads} object
 ##' @param shift An non-negative integer vector
-##' @param chrom.sizes An element representing the sizes of the chromosomes for the
-##' genome of interest. It could be a \code{data.table} or a\code{character} pointing
-##' to any of the genomes that are available in the package. The \code{data.table} must have two columns
-##' the chromosome and its size.
-##' @param parallel A logical value indicating if the process is gonna be run in parallel
+##' @param verbose a logical value indicating if messages should appear when calculating the SCC
 ##'
 ##' @return A \code{data.table} with two columns, shift and its respect strand cross
 ##' correlation
 ##'
 ##' @export
 ##' @docType methods
-##' @rdname strand_cross_corr-methods
-##' @examples
-##' file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
-##' rr <- create_reads(file)
-##' shift <- seq(10,100,by = 10)
-##' chrom.sizes <- system.file("extdata","chrom.sizes","hg19.chrom.sizes",package = "ChIPUtils",mustWork = TRUE)
-##' chrom.sizes <- data.table(read.table(chrom.sizes))
-##' strand_cross_corr(rr,shift, chrom.sizes,FALSE)
-setGeneric("strand_cross_corr",
-  function(object,shift,chrom.sizes,parallel)
-  standardGeneric("strand_cross_corr")
+##' @rdname SCC-methods
+setGeneric("SCC",
+  function(object,shift,verbose)
+  standardGeneric("SCC")
 )
 
 

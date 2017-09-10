@@ -22,3 +22,9 @@ possible_chrom_sizes <- function()
   return(chrom)
 
 }
+
+galignments2tibble <- function(galignment)
+{
+  out = as(galignment,"data.frame")
+  as_tibble(out)
+}

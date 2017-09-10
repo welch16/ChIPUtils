@@ -19,5 +19,5 @@ PBC = [# of positions with exactly 1 read mapped] / [# of positions with 1 or mo
 \examples{
 file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 chipdata = ChIPdata(file,isPE =  FALSE)
- PBC(chipdata)
+PBC(chipdata)
 }

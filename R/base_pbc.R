@@ -1,10 +1,3 @@
-
-galignments2tibble <- function(galignment)
-{
-  out = as(galignment,"data.frame")
-  as_tibble(out)
-}
-
 ##' Calculates the PCR bottleneck coefficient
 ##'
 ##' Calculates the PCR bottleneck coefficient defined as:
@@ -21,7 +14,7 @@ galignments2tibble <- function(galignment)
 ##' @examples
 ##' file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
 ##' chipdata = ChIPdata(file,isPE =  FALSE)
-##'  PBC(chipdata)
+##' PBC(chipdata)
 PBC <- function(chipdata)
 {
   stopifnot(class(chipdata) == "ChIPdata")
