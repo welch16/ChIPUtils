@@ -16,3 +16,8 @@ Value between 0 and 1 with the PBC
 Calculates the PCR bottleneck coefficient defined as:
 PBC = [# of positions with exactly 1 read mapped] / [# of positions with 1 or more reads mapped ]
 }
+\examples{
+file <- system.file("extdata","example","encode_K562_Ctcf_first3chr_Rep1.sort.bam",package = "ChIPUtils")
+chipdata = ChIPdata(file,isPE =  FALSE)
+ PBC(chipdata)
+}

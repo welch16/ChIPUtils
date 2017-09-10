@@ -71,39 +71,34 @@ ChIPdata <- function(bamfile = NULL,reads = NULL,isPE = NULL)
     
     if(!isPE){
       reads <- readGAlignments(bamfile,param = NULL)
-      sl <- seqlengths(reads)
-      gl <- as(reads,"GRangesList")
-      gl <- resize(gl,width = 1)
     }else{
       reads <- readGAlignmentPairs(bamfile,param = NULL)
-      sl <- seqlengths(reads)
-      gl <- as(reads,"GRangesList")
     }
-    
+
   }else{
     possibleClass <- c(class(emptySE),class(emptyPE))
     stopifnot(class(reads) %in% possibleClass)
 
     isPE <- class(reads) == class(emptyPE)
     
-    if(!isPE){
-      sl <- seqlengths(reads)
-      gl <- as(reads,"GRangesList")
-      gl <- resize(gl,width = 1)
-    }else{
-      sl <- seqlengths(reads)
-      gl <- as(reads,"GRangesList")
-    }
-  
   }
+  
+  sl <- seqlengths(reads)
 
+  if(!isPE){
+    gl <- as(reads,"GRangesList")
+    gl <- resize(gl,width = 1)
+  }else{
+    gl <- granges(reads)
+  }
+  
   fwdCover <- coverage(
     BiocGenerics::subset(gl,strand(gl) == "+"),
     width = sl)
   revCover <- coverage(
     BiocGenerics::subset(gl,strand(gl) == "-"),
     width = sl)
-  
+
   if(!isPE){
     chipdata <- new("ChIPdata",
                     readsSE = reads,
@@ -136,6 +131,8 @@ ChIPdata <- function(bamfile = NULL,reads = NULL,isPE = NULL)
   chipdata
 
 }
+
+
 
 # 
 # ##' reads class description
