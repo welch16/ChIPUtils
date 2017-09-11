@@ -1,7 +1,3 @@
-##' @import purrr
-##' @import BiocParallel
-NULL
-
 ##' Calculates the PCR bottleneck coefficient
 ##'
 ##' Calculates the PCR bottleneck coefficient defined as:

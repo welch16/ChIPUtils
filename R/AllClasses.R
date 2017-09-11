@@ -5,6 +5,9 @@
 ##' @import  GenomeInfoDb
 ##' @import dplyr
 ##' @import magrittr
+##' @import purrr
+##' @import BiocParallel
+##' @import ggplot2
 NULL
 
 ##' @rdname ChIPdata
