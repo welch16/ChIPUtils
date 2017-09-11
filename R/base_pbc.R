@@ -1,3 +1,7 @@
+##' @import purrr
+##' @import BiocParallel
+NULL
+
 ##' Calculates the PCR bottleneck coefficient
 ##'
 ##' Calculates the PCR bottleneck coefficient defined as:
@@ -26,21 +30,21 @@ PBC <- function(chipdata)
     tagsF <- alignedReads %>% 
       dplyr::filter(strand == "+") %>% 
       dplyr::rename(pos = start) %>% 
-      group_by(seqnames,
-               pos) %>% 
-      dplyr::summarise(
-        N = n(),
-        N1 = length(unique(pos)) 
-      ) %>% ungroup()
-    
+      split(.$seqnames) %>% 
+      map(group_by,pos) %>% 
+      map(summarise,
+          N = n()) %>% 
+      map(ungroup) %>% 
+      bind_rows()
     tagsR <- alignedReads %>% 
       dplyr::filter(strand == "-") %>% 
       dplyr::rename(pos = end) %>% 
-      group_by(seqnames,
-               pos) %>% 
-      dplyr::summarise(
-        N = n()
-    ) %>% ungroup()
+      split(.$seqnames) %>% 
+      map(group_by,pos) %>% 
+      map(dplyr::summarise,
+          N = n()) %>% 
+      map(ungroup) %>% 
+      bind_rows()
     
     tags <- bind_rows(tagsF,tagsR)
     
@@ -49,12 +53,12 @@ PBC <- function(chipdata)
     alignedReads <- galignments2tibble(granges(alignedReads))
     
     tags <- alignedReads %>% 
-      group_by(seqnames,start,end,strand) %>% 
-      dplyr::summarise(
-        N = n()
-      ) %>% 
-      ungroup()
-    
+      split(.$seqnames) %>% 
+      map(group_by,start,end,strand) %>% 
+      map(dplyr::summarise,
+          N = n()) %>% 
+      map(ungroup) %>% 
+      bind_rows()  
   }
   N <- sum(tags$N)
   N1 <- tags %>% 
