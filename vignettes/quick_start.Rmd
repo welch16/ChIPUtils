@@ -21,6 +21,8 @@ knitr::opts_chunk$set(echo = TRUE,
 library(tidyverse)
 library(ChIPUtils)
 
+theme_set(theme_bw())
+
 ```
 
 # What is ChIPUtils
@@ -61,5 +63,34 @@ and the number of aligned reads in the experiment can be retrieved by:
 ```{r nreads}
 nreads(example)
 ```
+
+## Quality Control (QC) metrics
+
+Using **ChIPUtils** we can calculate the PBC and SCC, which are the two most commonly used QC metrics for [ChIP-seq](https://www.encodeproject.org/data-standards/2012-quality-metrics/):
+
+```{r pbc,include=TRUE}
+PBC(example)
+```
+
+```{r scc , include=TRUE,fig.width=5,fig.height=3}
+scc = SCC(example,shift = seq(1,300,by = 10),verbose = FALSE)
+fl = scc[which.max(scc$corr),]$shift
+rl = reads(example)[1] %>% 
+  width()
+scc %>% 
+  ggplot(aes(shift,corr))+geom_line(colour = "red")+
+  geom_vline(xintercept = fl,linetype = 2)
+```
+
+From the SCC curve above, we can notice that the unobserved fragment length is estimated at the max. of the curve at `r fl` and the read length of the experiment is at `r rl`
+
+
+
+
+
+
+
+
+
 
 
