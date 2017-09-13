@@ -62,3 +62,60 @@ setMethod("SCC",
             scc
           }
 )          
+
+
+##' Calculates the Normalized Strand Cross-Correlation from the SCC curve
+##'
+##' @description Calculates the NSC defined as the ratio between max. and min. of the SCC
+##' 
+##' @param scc The tibble with the SCC curve calculate by \code{SCC}
+##' @param readLength The readlength of the experiment. If this parameter is not present, \code{NSC} will
+##' just calculate the ratio between the max and min of the SCC curve
+##' @export
+##'
+##' @return A numeric values
+##'
+##' @rdname NSC
+##' @name NSC
+##'
+NSC <- function(scc,readLength = NULL)
+{
+  stopifnot(colnames(scc) == c("shift","corr"))
+  if(!is.null(readLength)){
+    stopifnot(is.numeric(readLength),
+              readLength > 0)
+  }else{
+    readLength <- 1
+  }
+  sccFilter <- scc %>% 
+    filter(shift >= readLength)
+  
+  max(sccFilter$corr) / min(sccFilter$corr)
+  
+}
+
+##' Calculates the Relative Strand Cross-Correlation from the SCC curve
+##'
+##' @description Calculates the RSC defined as the ratio between max. and min. of the SCC
+##' 
+##' @param scc The tibble with the SCC curve calculate by \code{SCC}
+##' @param readLength The readlength of the experiment.
+##' @export
+##'
+##' @return A numeric values
+##'
+##' @rdname RSC
+##' @name RSC
+##'
+RSC <- function(scc,readLength)
+{
+  stopifnot(colnames(scc) == c("shift","corr"))
+  stopifnot(is.numeric(readLength),
+            readLength > 0)
+
+  sccFun = approxfun(scc$shift,scc$corr)
+  sccRl = sccFun(readLength)
+  
+  (max(scc$corr) - min(scc$corr)) / ( sccRl - min(scc$corr))
+  
+}

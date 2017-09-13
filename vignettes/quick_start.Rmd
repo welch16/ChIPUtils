@@ -64,7 +64,7 @@ and the number of aligned reads in the experiment can be retrieved by:
 nreads(example)
 ```
 
-## Quality Control (QC) metrics
+# Quality Control (QC) metrics
 
 Using **ChIPUtils** we can calculate the PBC and SCC, which are the two most commonly used QC metrics for [ChIP-seq](https://www.encodeproject.org/data-standards/2012-quality-metrics/):
 
@@ -82,15 +82,47 @@ scc %>%
   geom_vline(xintercept = fl,linetype = 2)
 ```
 
-From the SCC curve above, we can notice that the unobserved fragment length is estimated at the max. of the curve at `r fl` and the read length of the experiment is at `r rl`
+Using the SCC curve above, we can calculate the Normalized Strand Cross-Correlation by:
 
+```{r nsc,include=TRUE}
+NSC(scc)
+```
 
+and the Relative Strand Cross-Correlation by:
 
+```{r rsc,include=TRUE}
+RSC(scc,rl)
+```
+ 
+# Bin exploration
 
+**ChIPUtils** contains a collection of genome sizes, which can be seen by using:
 
+```{r poss,include=TRUE}
+possibleChrSizes()
+```
 
+For example after picking the `r "hg19"` genome, we can partition it into fixed length bins by using:
 
+```{r bins1 , include=TRUE}
+data("chromSizes",package = "ChIPUtils")
+createBins(1e4,chrom = chromSizes[["hg19"]]) 
 
+```
+
+Furthermore, we can use the same command to count the number of extended reads that overlap each bin, by adding a **ChIPdata** object and specifying the unobserved fragment length `r fl`:
+
+```{r bins2,include=TRUE}
+## we are using only the first three chromosomes 
+bins = createBins(1e3,chipdata = example,chrom = chromSizes[["hg19"]][1:3],fragLen = fl)
+bins
+```
+
+```{r bins3,include=TRUE,fig.width=5,fig.height=3}
+tibble(tagCounts = bins$tagCounts) %>% 
+  filter(tagCounts > 0) %>% 
+  ggplot(aes(tagCounts))+geom_histogram(fill = "white",colour = "black")
+```
 
 
 

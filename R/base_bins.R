@@ -48,18 +48,19 @@ createBins <- function(binSize, chipdata = NULL , chrom = NULL, fragLen = 1)
 
   chrom <- S4Vectors::split(chrom,seqnames(chrom))
   coord <- lapply(chrom,function(x){
-    seq( trunc(start(x) / binSize) * binSize,
+    seq( trunc(start(x) / binSize) * binSize ,
          trunc(end(x)/binSize) * binSize , by = binSize)})
   
   bins <- mapply(function(chr,starts,binSize)
     GRanges(seqnames = chr, 
-            IRanges(start = starts , width = binSize),
+            IRanges(start = starts, width = binSize),
             strand = "*" ),
     chr,coord, MoreArgs = list(binSize),SIMPLIFY = FALSE)  
   
   rm(coord)  
   names(bins) <- NULL
   bins <- unlist(GRangesList(bins))
+  bins <- shift(bins,1)
 
   if(!is.null(chipdata)){
     gr <- granges(reads(chipdata))

@@ -13,11 +13,10 @@
 ##' @examples
 ##'
 ##' possibleChrSizes()
-
 possibleChrSizes <- function()
 {
   data(chromSizes)
-  sizes %>% names()
+  chromSizes %>% names()
 }
 
 galignments2tibble <- function(galignment)

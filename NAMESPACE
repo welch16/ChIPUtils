@@ -2,7 +2,9 @@
 
 export(ChIPdata)
 export(MAPlot)
+export(NSC)
 export(PBC)
+export(RSC)
 export(SCC)
 export(createBins)
 export(hexbinPlot)
