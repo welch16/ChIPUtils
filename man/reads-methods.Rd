@@ -23,5 +23,5 @@ reads returns either a \code{GAlignments} or \code{GAlignmentPairs} object
 depending on if the reads are SE or PE
 }
 \seealso{
-\code{\link{ChIPData-class}}
+\code{\link{ChIPdata-class}}
 }

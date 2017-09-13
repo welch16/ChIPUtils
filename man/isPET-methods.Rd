@@ -21,5 +21,5 @@ A logical value indicating if the reads are PET (TRUE) or SET (FALSE)
 isPET returns a logical value indicating if the object isPET
 }
 \seealso{
-\code{\link{ChIPData-class}}
+\code{\link{ChIPdata-class}}
 }

@@ -12,14 +12,14 @@ SCC(object, shift, verbose)
 \S4method{SCC}{ChIPdata,numeric,logical}(object, shift, verbose = FALSE)
 }
 \arguments{
-\item{object}{A \code{reads} object}
+\item{object}{A \code{ChIPdata} object}
 
 \item{shift}{An non-negative integer vector}
 
 \item{verbose}{a logical value indicating if messages should appear when calculating the SCC}
 }
 \value{
-A \code{data.table} with two columns, shift and its respect strand cross
+A \code{tibble} with two columns, shift and its respect strand cross
 correlation
 }
 \description{

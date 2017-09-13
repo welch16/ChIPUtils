@@ -20,14 +20,12 @@ possibleChrSizes <- function()
   sizes %>% names()
 }
 
-##' @export
 galignments2tibble <- function(galignment)
 {
   out = as(galignment,"data.frame")
   as_tibble(out)
 }
 
-##' @export
 size2GRanges <- function(tib)
 {
   with(tib,

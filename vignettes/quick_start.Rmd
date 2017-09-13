@@ -1,0 +1,65 @@
+---
+title: "ChIPUtils: Quick start"
+author: |
+        | Rene Welch and S&#252;nd&#252;z Kele&#351;
+        | Department of Statistics, University of Wisconsin-Madison
+output: 
+    BiocStyle::html_document
+vignette: >
+    %\VignetteIndexEntry{Vignette Title}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+
+library(tidyverse)
+library(ChIPUtils)
+
+```
+
+# What is ChIPUtils
+
+**ChIPUtils** is a package for very general ChIP-seq analysis. The basic idea behind this package is to gather several of the common procedures we use when starting to analize a new ChIP dataset. To load the package is necessary to use: 
+
+```{r load,include=TRUE}
+
+library(ChIPUtils)
+
+```
+
+For the vignette we use the following samples which are based on ENCODE datasets:
+
+```{r files,echo = FALSE}
+
+bamfiles = list.files(system.file("extdata",package = "ChIPUtils"),
+                   full.names = TRUE,recursive = TRUE,
+                   pattern = "bam")
+bamfiles = bamfiles %>% {.[-grep("bai",.)]} 
+bamfiles %>% basename()
+
+```
+
+## **ChIPdata**: ChIPUtils base structure
+
+To use the different methods that the package contains, it is neccesary to create a **ChIPdata** object, for which is necessary to have a file in bam format with aligned reads and to indicate if the reads are single or paired ended:
+
+```{r chipdata}
+
+example = ChIPdata(bamfiles[1],isPE = FALSE)
+example %>% slotNames()
+ 
+```
+
+and the number of aligned reads in the experiment can be retrieved by:
+
+```{r nreads}
+nreads(example)
+```
+
+

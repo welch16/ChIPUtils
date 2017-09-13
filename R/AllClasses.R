@@ -1,5 +1,5 @@
 ##' @importFrom biovizBase flatGrl
-##' @importFrom GenomicAlignments readGAlignments GAlignments GAlignmentPairs
+##' @importFrom GenomicAlignments readGAlignments GAlignments GAlignmentPairs granges
 ##' @importFrom GenomicRanges GRangesList
 ##' @import  methods
 ##' @import  GenomeInfoDb
