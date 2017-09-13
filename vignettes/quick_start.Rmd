@@ -93,6 +93,14 @@ and the Relative Strand Cross-Correlation by:
 ```{r rsc,include=TRUE}
 RSC(scc,rl)
 ```
+
+*Quick note:* To calculate the **SCC** method is parallel it is only necessary to specify the processing cores to use something like the following chunk:
+
+```{r cores,include=TRUE,echo=TRUE,eval=FALSE}
+options(mc.cores = 2)
+```
+
+If this `option` is not defined, the **SCC** method will be run in only one core by default.
  
 # Bin exploration
 
@@ -123,6 +131,8 @@ tibble(tagCounts = bins$tagCounts) %>%
   filter(tagCounts > 0) %>% 
   ggplot(aes(tagCounts))+geom_histogram(fill = "white",colour = "black")
 ```
+
+
 
 
 
