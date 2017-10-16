@@ -11,3 +11,13 @@ We also included some commonly used quality control measures:
 
 - Strand cross-correlation
 
+### Installation
+
+To install the package it is better to use:
+
+```
+## install.packages("devtools") ## to install devtools
+devtools::install_github("welch16/ChIPUtils",ref = "devel")
+## or 
+devtools::install_github("welch16/ChIPUtils",ref = "devel",build_vignettes = TRUE) 
+```
